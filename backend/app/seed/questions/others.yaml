@@ -1,0 +1,224 @@
+# Practice coverage for the rest of the taxonomy (2–4 items per skill).
+defaults: {purpose: any, source_type: curated_general, authoring: ai_assisted, bank_version: v1}
+questions:
+  # git
+  - {slug: git-e1, skill: git, topic: Basics, type: mcq_single, difficulty: easy, prompt: "Which command stages changes to be included in the next commit?",
+     options: [{id: a, text: "git add"}, {id: b, text: "git push"}, {id: c, text: "git clone"}, {id: d, text: "git log"}], answer: a,
+     explanation: "git add moves changes into the staging area; git commit records them."}
+  - {slug: git-m1, skill: git, topic: Branching, type: mcq_single, difficulty: medium, prompt: "What does `git merge feature` do while you are on main?",
+     options: [{id: a, text: "Combines the feature branch's commits into main"}, {id: b, text: "Deletes the feature branch"}, {id: c, text: "Renames main"}, {id: d, text: "Uploads main to GitHub"}], answer: a,
+     explanation: "Merge integrates another branch's history into the current branch, creating a merge commit if needed."}
+  - {slug: git-m2, skill: git, topic: Undoing, type: mcq_single, difficulty: medium, prompt: "You pushed a bad commit to a shared branch. Which is the safest way to undo it?",
+     options: [{id: a, text: "git revert <commit> and push the new commit"}, {id: b, text: "git push --force after resetting"}, {id: c, text: "Delete the repository"}, {id: d, text: "git stash"}], answer: a,
+     explanation: "revert adds a new commit that undoes the change without rewriting shared history."}
+  - {slug: git-h1, skill: git, topic: Rebase, type: mcq_single, difficulty: hard, prompt: "What does `git rebase main` do on a feature branch?",
+     options: [{id: a, text: "Replays the feature branch's commits on top of the latest main, rewriting their hashes"}, {id: b, text: "Merges feature into main"}, {id: c, text: "Deletes main"}, {id: d, text: "Creates a tag"}], answer: a,
+     explanation: "Rebase rewrites history to a linear sequence; avoid rebasing commits others have already pulled."}
+  # testing
+  - {slug: tst-e1, skill: testing, topic: Unit tests, type: mcq_single, difficulty: easy, prompt: "What does a unit test check?",
+     options: [{id: a, text: "A small piece of code (such as one function) in isolation"}, {id: b, text: "The whole deployed system under real traffic"}, {id: c, text: "Only the UI colours"}, {id: d, text: "Network speed"}], answer: a,
+     explanation: "Unit tests are fast and focused; integration and end-to-end tests cover larger pieces."}
+  - {slug: tst-m1, skill: testing, topic: Mocks, type: mcq_single, difficulty: medium, prompt: "Why replace a payment API with a fake or mock in unit tests?",
+     options: [{id: a, text: "To make tests fast, deterministic and free of side effects like real charges"}, {id: b, text: "To make tests slower"}, {id: c, text: "Because real APIs never fail"}, {id: d, text: "To hide bugs"}], answer: a,
+     explanation: "Test doubles isolate the code under test from slow or unpredictable dependencies."}
+  - slug: tst-m-sa1
+    skill: testing
+    topic: Test design
+    type: short_answer
+    difficulty: medium
+    prompt: What test cases would you write for a function that validates a user's age is between 18 and 60 inclusive?
+    reference_answer: Test typical valid values such as 30, the boundaries 18 and 60 which should pass, just outside the boundaries 17 and 61 which should fail, and invalid inputs such as negative numbers, zero, non-integers, null or missing values and strings if the type allows. Boundary value analysis and equivalence partitioning cover the space with few tests.
+    key_points:
+      - {id: kp1, text: "Boundary values (18, 60) and just outside (17, 61)", weight: 0.45}
+      - {id: kp2, text: "A typical valid value", weight: 0.2}
+      - {id: kp3, text: "Invalid input types / null / negative values", weight: 0.35}
+    explanation: Boundaries are where off-by-one bugs live.
+  # docker
+  - {slug: dk-e1, skill: docker, topic: Concepts, type: mcq_single, difficulty: easy, prompt: "What is the difference between a Docker image and a container?",
+     options: [{id: a, text: "An image is a read-only template; a container is a running instance of an image"}, {id: b, text: "They are the same"}, {id: c, text: "A container builds images"}, {id: d, text: "Images run only on Windows"}], answer: a,
+     explanation: "You build images from a Dockerfile and run containers from them."}
+  - {slug: dk-m1, skill: docker, topic: Dockerfile, type: mcq_single, difficulty: medium, prompt: "Why copy requirements.txt and install dependencies before copying the rest of the source in a Dockerfile?",
+     options: [{id: a, text: "So the dependency layer is cached and not rebuilt on every code change"}, {id: b, text: "It's required syntax"}, {id: c, text: "It makes the image larger"}, {id: d, text: "To run tests"}], answer: a,
+     explanation: "Docker caches layers; putting rarely-changing steps first speeds up rebuilds."}
+  - {slug: dk-m2, skill: docker, topic: Data, type: mcq_single, difficulty: medium, prompt: "A Postgres container loses its data when recreated. What fixes this?",
+     options: [{id: a, text: "Mount a named volume for the data directory"}, {id: b, text: "Use a bigger image"}, {id: c, text: "Restart Docker"}, {id: d, text: "Expose more ports"}], answer: a,
+     explanation: "Container filesystems are ephemeral; volumes persist data independently of the container."}
+  # linux-cli
+  - {slug: lx-e1, skill: linux-cli, topic: Navigation, type: mcq_single, difficulty: easy, prompt: "Which command shows the current working directory?",
+     options: [{id: a, text: "pwd"}, {id: b, text: "ls"}, {id: c, text: "cd"}, {id: d, text: "whoami"}], answer: a, explanation: "pwd prints the working directory."}
+  - {slug: lx-m1, skill: linux-cli, topic: Pipes, type: mcq_single, difficulty: medium, prompt: "What does `grep ERROR app.log | wc -l` output?",
+     options: [{id: a, text: "The number of lines in app.log containing ERROR"}, {id: b, text: "All errors in the file"}, {id: c, text: "The file size"}, {id: d, text: "It deletes error lines"}], answer: a,
+     explanation: "grep filters matching lines and wc -l counts them."}
+  - {slug: lx-m2, skill: linux-cli, topic: Permissions, type: mcq_single, difficulty: medium, prompt: "What does `chmod 600 secrets.env` do?",
+     options: [{id: a, text: "Owner can read and write; nobody else has access"}, {id: b, text: "Everyone can read"}, {id: c, text: "Makes the file executable"}, {id: d, text: "Deletes the file after 600 seconds"}], answer: a,
+     explanation: "6 = read + write for the owner; 0 for group and others."}
+  # auth-security
+  - {slug: sec-e1, skill: auth-security, topic: Passwords, type: mcq_single, difficulty: easy, prompt: "How should an application store user passwords?",
+     options: [{id: a, text: "Hashed with a slow, salted algorithm such as Argon2 or bcrypt"}, {id: b, text: "In plain text"}, {id: c, text: "Encrypted with a key stored in the same database"}, {id: d, text: "Base64-encoded"}], answer: a,
+     explanation: "Slow salted hashes make stolen hashes expensive to crack; base64 is not security."}
+  - {slug: sec-m1, skill: auth-security, topic: SQL injection, type: mcq_single, difficulty: medium, prompt: "What is the standard defence against SQL injection?",
+     options: [{id: a, text: "Parameterised queries / prepared statements"}, {id: b, text: "Hiding error messages only"}, {id: c, text: "Using longer table names"}, {id: d, text: "Client-side validation only"}], answer: a,
+     explanation: "Parameters keep user input as data so it can never change the SQL statement's structure."}
+  - {slug: sec-m2, skill: auth-security, topic: Authorisation, type: mcq_single, difficulty: medium, prompt: "A user changes /api/orders/123 to /api/orders/124 and sees someone else's order. What is this vulnerability?",
+     options: [{id: a, text: "Broken object-level authorisation (IDOR)"}, {id: b, text: "XSS"}, {id: c, text: "A DNS error"}, {id: d, text: "Rate limiting"}], answer: a,
+     explanation: "Every lookup must check that the resource belongs to the requesting user, not just that the user is logged in."}
+  - slug: sec-m-sa1
+    skill: auth-security
+    topic: XSS
+    type: short_answer
+    difficulty: medium
+    prompt: What is cross-site scripting (XSS) and how do you prevent it?
+    reference_answer: XSS happens when an attacker gets their script to run in other users' browsers, usually by injecting HTML or JavaScript through user-controlled content that the site renders unescaped. It can steal sessions or act as the user. Prevent it by escaping output by default (as React does), never inserting untrusted HTML, sanitising rich text, using a Content Security Policy, and HttpOnly cookies so scripts can't read session tokens.
+    key_points:
+      - {id: kp1, text: "Attacker-controlled script runs in another user's browser", weight: 0.35}
+      - {id: kp2, text: "Escape/encode output and avoid injecting untrusted HTML (sanitise)", weight: 0.4}
+      - {id: kp3, text: "Defence in depth such as CSP or HttpOnly cookies", weight: 0.25}
+    explanation: Output encoding is the primary defence.
+  # python-web
+  - {slug: pw-e1, skill: python-web, topic: FastAPI, type: mcq_single, difficulty: easy, prompt: "In FastAPI, what validates and parses a JSON request body into a typed object?",
+     options: [{id: a, text: "A Pydantic model used as the endpoint parameter type"}, {id: b, text: "A Jinja template"}, {id: c, text: "The settings file"}, {id: d, text: "A CSS file"}], answer: a,
+     explanation: "FastAPI uses Pydantic models to validate bodies and return 422 errors on invalid input."}
+  - {slug: pw-m1, skill: python-web, topic: Dependency injection, type: mcq_single, difficulty: medium, prompt: "What is FastAPI's Depends() commonly used for?",
+     options: [{id: a, text: "Sharing logic such as database sessions or the current user across endpoints"}, {id: b, text: "Installing packages"}, {id: c, text: "Styling responses"}, {id: d, text: "Compiling Python"}], answer: a,
+     explanation: "Dependencies are resolved per request and can be overridden in tests."}
+  - {slug: pw-m2, skill: python-web, topic: Django ORM, type: mcq_single, difficulty: medium, prompt: "Looping over 100 orders and accessing order.customer.name triggers 101 queries. What is this and how is it fixed in Django?",
+     options: [{id: a, text: "The N+1 query problem; use select_related('customer')"}, {id: b, text: "A deadlock; restart the server"}, {id: c, text: "Normal behaviour; nothing to fix"}, {id: d, text: "A migration error"}], answer: a,
+     explanation: "select_related (or prefetch_related) loads related rows in the same or one extra query."}
+  # postgresql
+  - {slug: pg-e1, skill: postgresql, topic: Types, type: mcq_single, difficulty: easy, prompt: "Which PostgreSQL type stores semi-structured JSON efficiently and supports indexing?",
+     options: [{id: a, text: "jsonb"}, {id: b, text: "text"}, {id: c, text: "varchar(10)"}, {id: d, text: "bytea"}], answer: a,
+     explanation: "jsonb is a binary JSON format with operators and GIN index support."}
+  - {slug: pg-m1, skill: postgresql, topic: EXPLAIN, type: mcq_single, difficulty: medium, prompt: "What does EXPLAIN ANALYZE show?",
+     options: [{id: a, text: "The executed query plan with actual timings and row counts"}, {id: b, text: "The table's data"}, {id: c, text: "User permissions"}, {id: d, text: "Backup history"}], answer: a,
+     explanation: "It runs the query and reports each plan node's real cost, which reveals slow scans or bad estimates."}
+  # nosql
+  - {slug: ns-e1, skill: nosql, topic: Document stores, type: mcq_single, difficulty: easy, prompt: "MongoDB stores data primarily as:",
+     options: [{id: a, text: "JSON-like documents in collections"}, {id: b, text: "Rows in fixed-schema tables"}, {id: c, text: "Key-value pairs only"}, {id: d, text: "Graphs of nodes"}], answer: a,
+     explanation: "MongoDB is a document database (BSON documents grouped in collections)."}
+  - {slug: ns-m1, skill: nosql, topic: Trade-offs, type: mcq_single, difficulty: medium, prompt: "When is a relational database usually a better fit than a document store?",
+     options: [{id: a, text: "When data is highly related and needs joins, constraints and multi-row transactions"}, {id: b, text: "When there is no structure at all"}, {id: c, text: "Never"}, {id: d, text: "Only for images"}], answer: a,
+     explanation: "Relational databases excel at enforcing relationships and integrity; document stores suit self-contained aggregates."}
+  # caching
+  - {slug: ch-e1, skill: caching, topic: Concepts, type: mcq_single, difficulty: easy, prompt: "What is the main purpose of a cache such as Redis in front of a database?",
+     options: [{id: a, text: "Serve frequently read data faster and reduce database load"}, {id: b, text: "Permanently replace the database"}, {id: c, text: "Encrypt data"}, {id: d, text: "Store passwords"}], answer: a,
+     explanation: "Caches keep hot data in memory; the database remains the source of truth."}
+  - {slug: ch-m1, skill: caching, topic: Invalidation, type: mcq_single, difficulty: medium, prompt: "A product's price changes but users keep seeing the old price from the cache. What's the usual fix?",
+     options: [{id: a, text: "Invalidate or update the cache entry when the price is written, and set a sensible TTL"}, {id: b, text: "Cache forever"}, {id: c, text: "Disable the database"}, {id: d, text: "Ask users to refresh"}], answer: a,
+     explanation: "Write-time invalidation plus expiry keeps cached data from going stale."}
+  # system-design
+  - {slug: sd-e1, skill: system-design, topic: Scaling, type: mcq_single, difficulty: easy, prompt: "What is horizontal scaling?",
+     options: [{id: a, text: "Adding more servers behind a load balancer"}, {id: b, text: "Buying a bigger single server"}, {id: c, text: "Using a wider monitor"}, {id: d, text: "Adding more database columns"}], answer: a,
+     explanation: "Horizontal scaling adds machines; vertical scaling makes one machine bigger."}
+  - {slug: sd-m1, skill: system-design, topic: Statelessness, type: mcq_single, difficulty: medium, prompt: "Why should web servers behind a load balancer be stateless?",
+     options: [{id: a, text: "So any server can handle any request; state lives in a shared database or cache"}, {id: b, text: "So they use less CPU"}, {id: c, text: "Stateless servers can't fail"}, {id: d, text: "It removes the need for a database"}], answer: a,
+     explanation: "If sessions live on one server, the load balancer can't freely route requests or replace servers."}
+  - slug: sd-int1
+    skill: system-design
+    topic: Design
+    type: short_answer
+    difficulty: medium
+    purpose: interview
+    prompt: Design a URL shortener at a high level. What components would you need and how would you scale reads?
+    reference_answer: An API to create short codes and a redirect endpoint. Generate unique codes with a base62 encoding of an ID or random strings with a collision check, and store the code-to-URL mapping in a database keyed by code. Redirects are read-heavy, so put a cache such as Redis in front of the database, use read replicas, and run stateless app servers behind a load balancer. Add rate limiting, analytics counters written asynchronously, and expiry for links.
+    key_points:
+      - {id: kp1, text: "Code generation strategy (base62 / random with collision check)", weight: 0.3}
+      - {id: kp2, text: "Storage of code → URL mapping and redirect flow", weight: 0.25}
+      - {id: kp3, text: "Scaling reads with caching / replicas / stateless servers", weight: 0.3}
+      - {id: kp4, text: "Extras: rate limiting, analytics, expiry", weight: 0.15}
+    explanation: Interviewers look for read-heavy scaling and a sound ID scheme.
+  # computer-networks
+  - {slug: cn-e1, skill: computer-networks, topic: Protocols, type: mcq_single, difficulty: easy, prompt: "Which transport protocol guarantees ordered, reliable delivery?",
+     options: [{id: a, text: "TCP"}, {id: b, text: "UDP"}, {id: c, text: "IP"}, {id: d, text: "ICMP"}], answer: a,
+     explanation: "TCP provides reliable, ordered streams via acknowledgements and retransmission; UDP does not."}
+  - {slug: cn-e2, skill: computer-networks, topic: DNS, type: mcq_single, difficulty: easy, prompt: "What does DNS do?",
+     options: [{id: a, text: "Translates domain names into IP addresses"}, {id: b, text: "Encrypts web traffic"}, {id: c, text: "Assigns MAC addresses"}, {id: d, text: "Compresses files"}], answer: a,
+     explanation: "DNS resolves human-readable names to IP addresses."}
+  - {slug: cn-m1, skill: computer-networks, topic: OSI model, type: mcq_single, difficulty: medium, prompt: "At which OSI layer does HTTP operate?",
+     options: [{id: a, text: "Application layer"}, {id: b, text: "Transport layer"}, {id: c, text: "Network layer"}, {id: d, text: "Physical layer"}], answer: a,
+     explanation: "HTTP is an application-layer protocol running over TCP (transport) and IP (network)."}
+  - {slug: cn-m2, skill: computer-networks, topic: TCP, type: mcq_single, difficulty: medium, prompt: "What is the purpose of TCP's three-way handshake (SYN, SYN-ACK, ACK)?",
+     options: [{id: a, text: "To establish a connection and agree on initial sequence numbers"}, {id: b, text: "To encrypt data"}, {id: c, text: "To resolve a domain name"}, {id: d, text: "To close the connection"}], answer: a,
+     explanation: "Both sides confirm they can send and receive and synchronise sequence numbers."}
+  - {slug: cn-h1, skill: computer-networks, topic: Subnetting, type: mcq_single, difficulty: hard, prompt: "How many usable host addresses are in a /24 IPv4 subnet?",
+     options: [{id: a, text: "254"}, {id: b, text: "256"}, {id: c, text: "255"}, {id: d, text: "128"}], answer: a,
+     explanation: "A /24 has 256 addresses; the network and broadcast addresses are reserved, leaving 254."}
+  # java
+  - {slug: jv-e1, skill: java, topic: Basics, type: mcq_single, difficulty: easy, prompt: "In Java, what does `==` compare for two String objects?",
+     options: [{id: a, text: "Whether they are the same object reference"}, {id: b, text: "Their characters"}, {id: c, text: "Their lengths"}, {id: d, text: "Their hash codes"}], answer: a,
+     explanation: "Use .equals() to compare string contents; == compares references."}
+  - {slug: jv-m1, skill: java, topic: Collections, type: mcq_single, difficulty: medium, prompt: "Which Java collection keeps unique elements with O(1) average lookup?",
+     options: [{id: a, text: "HashSet"}, {id: b, text: "ArrayList"}, {id: c, text: "LinkedList"}, {id: d, text: "TreeMap"}], answer: a,
+     explanation: "HashSet is backed by a hash table; TreeSet/TreeMap give O(log n) with ordering."}
+  # responsive-design
+  - {slug: rd-e1, skill: responsive-design, topic: Viewport, type: mcq_single, difficulty: easy, prompt: "Which tag is needed for a page to scale correctly on mobile devices?",
+     options: [{id: a, text: "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">"}, {id: b, text: "<meta charset=\"utf-8\">"}, {id: c, text: "<link rel=\"icon\">"}, {id: d, text: "<base href=\"/\">"}], answer: a,
+     explanation: "Without the viewport meta tag, mobile browsers render at a desktop width and zoom out."}
+  - {slug: rd-m1, skill: responsive-design, topic: Media queries, type: mcq_single, difficulty: medium, prompt: "In a mobile-first stylesheet, which media query adds a two-column layout on wider screens?",
+     options: [{id: a, text: "@media (min-width: 768px) { … }"}, {id: b, text: "@media (max-width: 768px) { … }"}, {id: c, text: "@media print { … }"}, {id: d, text: "@media (orientation: portrait) { … }"}], answer: a,
+     explanation: "Mobile-first starts with small-screen styles and adds enhancements with min-width queries."}
+  # state-management
+  - {slug: sm-e1, skill: state-management, topic: Prop drilling, type: mcq_single, difficulty: easy, prompt: "What problem does React Context mainly solve?",
+     options: [{id: a, text: "Passing data through many component levels (prop drilling)"}, {id: b, text: "Making API calls faster"}, {id: c, text: "Styling components"}, {id: d, text: "Routing"}], answer: a,
+     explanation: "Context provides values to deeply nested components without threading props through every level."}
+  - {slug: sm-m1, skill: state-management, topic: Server state, type: mcq_single, difficulty: medium, prompt: "Why use a library like TanStack Query for data fetched from an API instead of copying it into a global store?",
+     options: [{id: a, text: "It handles caching, refetching, loading/error states and invalidation of server data"}, {id: b, text: "It replaces the backend"}, {id: c, text: "It's required by React"}, {id: d, text: "It removes the need for components"}], answer: a,
+     explanation: "Server state has different needs (staleness, refetching) than client UI state."}
+  # accessibility
+  - {slug: a11y-e1, skill: accessibility, topic: Images, type: mcq_single, difficulty: easy, prompt: "What should the alt text of a purely decorative image be?",
+     options: [{id: a, text: "Empty (alt=\"\") so screen readers skip it"}, {id: b, text: "\"image\""}, {id: c, text: "The file name"}, {id: d, text: "Leave alt out entirely"}], answer: a,
+     explanation: "Empty alt marks decorative images; meaningful images need descriptive alt text."}
+  - {slug: a11y-m1, skill: accessibility, topic: Keyboard, type: mcq_single, difficulty: medium, prompt: "A clickable <div> opens a menu. What's the main accessibility problem?",
+     options: [{id: a, text: "It isn't focusable or operable by keyboard and has no role; use a <button>"}, {id: b, text: "Divs can't have click handlers"}, {id: c, text: "Menus must be red"}, {id: d, text: "There is no problem"}], answer: a,
+     explanation: "Native buttons are focusable, keyboard-activated and announced correctly."}
+  - {slug: a11y-m2, skill: accessibility, topic: Contrast, type: mcq_single, difficulty: medium, prompt: "What minimum contrast ratio does WCAG 2.1 AA require for normal-size body text?",
+     options: [{id: a, text: "4.5:1"}, {id: b, text: "2:1"}, {id: c, text: "7:1 for all text"}, {id: d, text: "1.5:1"}], answer: a,
+     explanation: "AA requires 4.5:1 for normal text and 3:1 for large text and UI components."}
+  # async-programming
+  - {slug: as-e1, skill: async-programming, topic: Promises, type: mcq_single, difficulty: easy, prompt: "What does Promise.all([p1, p2]) do if p2 rejects?",
+     options: [{id: a, text: "The combined promise rejects with p2's error"}, {id: b, text: "It ignores p2"}, {id: c, text: "It waits forever"}, {id: d, text: "It resolves with undefined"}], answer: a,
+     explanation: "Promise.all rejects as soon as any input rejects; Promise.allSettled reports every outcome."}
+  - {slug: as-m1, skill: async-programming, topic: Parallelism, type: mcq_single, difficulty: medium, prompt: "Two independent API calls are awaited one after another, taking 2 s total. How can they finish in about 1 s?",
+     options: [{id: a, text: "Start both and await Promise.all([a(), b()])"}, {id: b, text: "Use a for loop"}, {id: c, text: "Add more awaits"}, {id: d, text: "Use setTimeout"}], answer: a,
+     explanation: "Starting both before awaiting lets them run concurrently."}
+  # frontend-performance
+  - {slug: fp-e1, skill: frontend-performance, topic: Images, type: mcq_single, difficulty: easy, prompt: "Which change most often improves page load for an image-heavy page?",
+     options: [{id: a, text: "Serve appropriately sized, compressed images and lazy-load offscreen ones"}, {id: b, text: "Add more fonts"}, {id: c, text: "Inline all JavaScript"}, {id: d, text: "Disable caching"}], answer: a,
+     explanation: "Images are often the largest bytes on a page."}
+  - {slug: fp-m1, skill: frontend-performance, topic: Bundles, type: mcq_single, difficulty: medium, prompt: "What does route-based code splitting achieve in a React app?",
+     options: [{id: a, text: "Users download only the JavaScript needed for the page they open"}, {id: b, text: "It merges all code into one file"}, {id: c, text: "It removes CSS"}, {id: d, text: "It disables routing"}], answer: a,
+     explanation: "Lazy-loaded route chunks shrink the initial bundle."}
+  # nodejs
+  - {slug: nd-e1, skill: nodejs, topic: Express, type: mcq_single, difficulty: easy, prompt: "In Express, what is middleware?",
+     options: [{id: a, text: "A function that runs on the request before (or after) the route handler, such as auth or logging"}, {id: b, text: "A database"}, {id: c, text: "A CSS framework"}, {id: d, text: "A type of server hardware"}], answer: a,
+     explanation: "Middleware receives req, res and next, and can modify the request or end the response."}
+  - {slug: nd-m1, skill: nodejs, topic: Event loop, type: mcq_single, difficulty: medium, prompt: "Why does a CPU-heavy synchronous loop in a Node.js route slow down every other request?",
+     options: [{id: a, text: "It blocks the single event-loop thread, so nothing else runs until it finishes"}, {id: b, text: "Node.js runs each request on a separate CPU"}, {id: c, text: "It increases network latency"}, {id: d, text: "It doesn't"}], answer: a,
+     explanation: "Move heavy work to worker threads or a separate service."}
+  # ci-cd
+  - {slug: ci-e1, skill: ci-cd, topic: CI, type: mcq_single, difficulty: easy, prompt: "What is continuous integration?",
+     options: [{id: a, text: "Automatically building and testing every change merged into the shared branch"}, {id: b, text: "Deploying once a year"}, {id: c, text: "Writing code without tests"}, {id: d, text: "Integrating two databases"}], answer: a,
+     explanation: "CI catches integration problems early by running checks on every push or pull request."}
+  - {slug: ci-m1, skill: ci-cd, topic: Secrets, type: mcq_single, difficulty: medium, prompt: "Where should a CI pipeline get API keys it needs for deployment?",
+     options: [{id: a, text: "From the CI provider's encrypted secrets store, never from the repository"}, {id: b, text: "Hard-coded in the workflow file"}, {id: c, text: "From the README"}, {id: d, text: "From a public gist"}], answer: a,
+     explanation: "Secrets in a repository can leak through history; use the platform's secret storage."}
+  # cloud-basics
+  - {slug: cl-e1, skill: cloud-basics, topic: Models, type: mcq_single, difficulty: easy, prompt: "Which is an example of Platform as a Service (PaaS)?",
+     options: [{id: a, text: "Deploying an app to a managed platform that runs it for you, such as Heroku or Render"}, {id: b, text: "Buying a physical server"}, {id: c, text: "Using a spreadsheet"}, {id: d, text: "Writing HTML"}], answer: a,
+     explanation: "PaaS manages servers and runtime; you supply the code."}
+  - {slug: cl-m1, skill: cloud-basics, topic: Storage, type: mcq_single, difficulty: medium, prompt: "Which AWS service is designed for storing files such as user uploads as objects?",
+     options: [{id: a, text: "S3"}, {id: b, text: "EC2"}, {id: c, text: "Route 53"}, {id: d, text: "IAM"}], answer: a,
+     explanation: "S3 is object storage; EC2 provides virtual machines; IAM manages permissions."}
+  # bi-tools
+  - {slug: bi-e1, skill: bi-tools, topic: Concepts, type: mcq_single, difficulty: easy, prompt: "What is a 'measure' in Power BI or Tableau?",
+     options: [{id: a, text: "A numeric value that is aggregated, such as total sales"}, {id: b, text: "A category like region"}, {id: c, text: "A colour theme"}, {id: d, text: "A data source password"}], answer: a,
+     explanation: "Measures are aggregated numbers; dimensions are the categories you slice by."}
+  - {slug: bi-m1, skill: bi-tools, topic: DAX, type: mcq_single, difficulty: medium, prompt: "Why might a Power BI measure using SUM(Sales[Amount]) show different values in different visuals?",
+     options: [{id: a, text: "Measures are evaluated in the filter context of each visual (slicers, rows, columns)"}, {id: b, text: "The data is random"}, {id: c, text: "SUM is broken"}, {id: d, text: "Visuals use different databases"}], answer: a,
+     explanation: "Filter context determines which rows a measure aggregates."}
+  # agile-collaboration
+  - {slug: ag-e1, skill: agile-collaboration, topic: Scrum, type: mcq_single, difficulty: easy, prompt: "What is a sprint in Scrum?",
+     options: [{id: a, text: "A fixed time box (often 1–4 weeks) in which the team delivers a planned increment"}, {id: b, text: "A race between developers"}, {id: c, text: "A bug report"}, {id: d, text: "An unplanned emergency release"}], answer: a,
+     explanation: "Sprints are short, fixed iterations with planning, review and retrospective."}
+  - {slug: ag-m1, skill: agile-collaboration, topic: Code review, type: mcq_single, difficulty: medium, prompt: "What makes a pull request easy to review?",
+     options: [{id: a, text: "A small, focused change with a clear description and tests"}, {id: b, text: "Thousands of unrelated changes"}, {id: c, text: "No description"}, {id: d, text: "Merging before review"}], answer: a,
+     explanation: "Small, well-described PRs get faster and better reviews."}

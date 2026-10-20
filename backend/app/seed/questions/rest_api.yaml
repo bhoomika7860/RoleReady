@@ -1,0 +1,134 @@
+defaults: {skill: rest-api, purpose: any, source_type: curated_general, authoring: ai_assisted, bank_version: v1}
+questions:
+  - slug: api-e1
+    topic: Status codes
+    type: mcq_single
+    difficulty: easy
+    prompt: Which HTTP status code means a new resource was created?
+    options: [{id: a, text: "200 OK"}, {id: b, text: "201 Created"}, {id: c, text: "204 No Content"}, {id: d, text: "302 Found"}]
+    answer: b
+    explanation: 201 Created signals that the request created a resource, usually with a Location header or the new resource in the body.
+  - slug: api-e2
+    topic: HTTP methods
+    type: mcq_single
+    difficulty: easy
+    prompt: In a REST API, which method is conventionally used to partially update an existing resource?
+    options: [{id: a, text: GET}, {id: b, text: POST}, {id: c, text: PATCH}, {id: d, text: HEAD}]
+    answer: c
+    explanation: PATCH applies a partial modification; PUT replaces the whole resource representation.
+  - slug: api-e3
+    topic: Resource naming
+    type: mcq_single
+    difficulty: easy
+    prompt: Which endpoint best follows REST naming conventions for fetching the orders of user 42?
+    options: [{id: a, text: "GET /getOrdersForUser?id=42"}, {id: b, text: "GET /users/42/orders"}, {id: c, text: "POST /users/42/fetchOrders"}, {id: d, text: "GET /orders/user/get/42"}]
+    answer: b
+    explanation: REST uses nouns for resources and HTTP methods for actions; nested paths express ownership.
+  - slug: api-e4
+    topic: Status codes
+    type: mcq_single
+    difficulty: easy
+    prompt: A client sends a request without valid login credentials to a protected endpoint. Which status code fits best?
+    options: [{id: a, text: "400 Bad Request"}, {id: b, text: "401 Unauthorized"}, {id: c, text: "404 Not Found"}, {id: d, text: "500 Internal Server Error"}]
+    answer: b
+    explanation: 401 means the request lacks valid authentication; 403 means authenticated but not allowed.
+  - slug: api-m1
+    topic: Idempotency
+    type: mcq_multi
+    difficulty: medium
+    prompt: Which HTTP methods are idempotent by definition? (Select all that apply.)
+    options: [{id: a, text: GET}, {id: b, text: PUT}, {id: c, text: DELETE}, {id: d, text: POST}]
+    answer: [a, b, c]
+    explanation: Repeating GET, PUT or DELETE leaves the server in the same state as doing it once. POST typically creates a new resource each time, so it is not idempotent.
+  - slug: api-m2
+    topic: Pagination
+    type: mcq_single
+    difficulty: medium
+    prompt: An endpoint returns a list that can grow to millions of rows and new rows are inserted constantly. Which pagination approach avoids skipped or duplicated items between pages?
+    options: [{id: a, text: "Offset pagination (?page=3&size=20)"}, {id: b, text: "Cursor/keyset pagination using the last seen id or timestamp"}, {id: c, text: "Returning everything and letting the client page"}, {id: d, text: "Random sampling"}]
+    answer: b
+    explanation: Keyset (cursor) pagination continues from a stable position, so inserts don't shift pages; it's also faster than large OFFSETs.
+  - slug: api-m-sa1
+    topic: REST principles
+    type: short_answer
+    difficulty: medium
+    prompt: What makes an API "RESTful"? Describe at least three principles.
+    reference_answer: A RESTful API models data as resources identified by URLs, uses standard HTTP methods with their meanings (GET reads, POST creates, PUT/PATCH update, DELETE removes), is stateless so each request carries everything needed such as auth tokens, uses meaningful status codes, and exchanges representations like JSON. Responses can be cacheable and the interface is uniform and consistent.
+    key_points:
+      - {id: kp1, text: "Resources identified by URLs (nouns, not verbs)", weight: 0.3}
+      - {id: kp2, text: "Standard HTTP methods and status codes used with their meanings", weight: 0.35}
+      - {id: kp3, text: "Statelessness — each request contains what the server needs", weight: 0.35}
+    explanation: Resources, uniform HTTP semantics and statelessness are the core REST constraints.
+  - slug: api-m-sa2
+    topic: Error handling
+    type: short_answer
+    difficulty: medium
+    prompt: How should a REST API report validation errors to its clients? Describe the status code and what the response body should contain.
+    reference_answer: Return a 4xx status — usually 400 or 422 for validation failures — with a consistent JSON error body containing a machine-readable error code, a human-readable message, and per-field details so the client can show errors next to inputs. Don't leak stack traces or internal details, and include a request ID for support.
+    key_points:
+      - {id: kp1, text: "A 4xx status such as 400 or 422, not 200 or 500", weight: 0.35}
+      - {id: kp2, text: "Consistent error body with a code and readable message", weight: 0.35}
+      - {id: kp3, text: "Per-field details and no internal stack traces", weight: 0.3}
+    explanation: Clients need predictable, structured errors to recover gracefully.
+  - slug: api-h1
+    topic: Concurrency
+    type: mcq_single
+    difficulty: hard
+    prompt: Two clients edit the same resource at once and the second silently overwrites the first. Which mechanism lets the API detect this "lost update"?
+    options:
+      - {id: a, text: "Conditional requests with an ETag and If-Match (optimistic concurrency)"}
+      - {id: b, text: "Switching all updates from PUT to POST"}
+      - {id: c, text: "Adding CORS headers"}
+      - {id: d, text: "Compressing the response"}
+    answer: a
+    explanation: The client sends the version it last saw (If-Match); the server rejects the write with 412 if the resource changed.
+  - slug: api-h2
+    topic: Idempotency keys
+    type: mcq_single
+    difficulty: hard
+    prompt: A payment POST times out on the client, which retries. How can the API avoid charging twice?
+    options:
+      - {id: a, text: "Use GET instead of POST for payments"}
+      - {id: b, text: "Require an idempotency key per payment and return the stored result for repeated keys"}
+      - {id: c, text: "Increase the client timeout"}
+      - {id: d, text: "Return 500 on every retry"}
+    answer: b
+    explanation: An idempotency key lets the server recognise a retry of the same operation and return the original result.
+  - slug: api-h3
+    topic: Versioning
+    type: mcq_single
+    difficulty: hard
+    prompt: You must rename a JSON field that mobile apps already depend on. Which approach avoids breaking existing clients?
+    options:
+      - {id: a, text: "Rename the field immediately and announce it"}
+      - {id: b, text: "Add the new field alongside the old one, deprecate the old one, or release the change under a new API version"}
+      - {id: c, text: "Return both fields only on Fridays"}
+      - {id: d, text: "Change the HTTP method"}
+    answer: b
+    explanation: Additive changes are backward compatible; breaking changes go behind a new version with a deprecation window.
+  - slug: api-int1
+    topic: API design
+    type: short_answer
+    difficulty: medium
+    purpose: interview
+    prompt: Design the REST endpoints for a simple to-do list app with users and tasks. Explain your choices of URLs, methods and status codes.
+    reference_answer: Resources are users and tasks. Endpoints such as GET /tasks to list the current user's tasks with pagination and filters, POST /tasks to create (201), GET /tasks/{id}, PATCH /tasks/{id} to update fields such as completed (200), and DELETE /tasks/{id} (204). Authentication identifies the user so tasks are scoped to them and other users' IDs return 404. Validation errors return 422 with field details. Use consistent JSON and versioning such as /api/v1.
+    key_points:
+      - {id: kp1, text: "Noun-based resource URLs with appropriate methods (GET/POST/PATCH/DELETE)", weight: 0.35}
+      - {id: kp2, text: "Appropriate status codes (201, 204, 404, 4xx validation)", weight: 0.25}
+      - {id: kp3, text: "Authentication and per-user scoping of tasks", weight: 0.25}
+      - {id: kp4, text: "Extras such as pagination, filtering or versioning", weight: 0.15}
+    explanation: A good answer is consistent, secure by default and uses HTTP semantics deliberately.
+  - slug: api-int2
+    topic: Authentication
+    type: short_answer
+    difficulty: medium
+    purpose: interview
+    prompt: Compare session cookies and JWT bearer tokens for authenticating users of a web API. When would you choose each?
+    reference_answer: With sessions the server stores session state and the browser sends an opaque ID in an HttpOnly cookie; it's easy to revoke and fits same-origin web apps, but needs CSRF protection and server-side storage. JWTs are signed self-contained tokens verified without a lookup, convenient for stateless services and mobile or third-party clients, but are hard to revoke before expiry and must be stored carefully (not in localStorage if XSS is a risk). Choose sessions for a typical browser app on one domain; JWTs for distributed services or non-browser clients, with short expiry and refresh tokens.
+    key_points:
+      - {id: kp1, text: "Sessions: server-side state, opaque cookie, easy revocation", weight: 0.3}
+      - {id: kp2, text: "JWT: signed, stateless, verified without lookup, hard to revoke", weight: 0.3}
+      - {id: kp3, text: "Security considerations (HttpOnly, CSRF, XSS, expiry)", weight: 0.2}
+      - {id: kp4, text: "Sensible guidance on when to use each", weight: 0.2}
+    explanation: Both work; the trade-off is revocation and storage versus statelessness.

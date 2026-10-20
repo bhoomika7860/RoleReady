@@ -1,0 +1,87 @@
+# Closed skill taxonomy (40 skills). Aliases are matched on word boundaries, case-insensitively.
+# A leading "=" makes an alias case-sensitive (e.g. "=REST" so the English word "rest" does not match).
+skills:
+  - {slug: python, name: Python, category: language, aliases: [Python, Python3, Python 3]}
+  - {slug: javascript, name: JavaScript, category: language, aliases: [JavaScript, Javascript, "=JS", ES6, ECMAScript]}
+  - {slug: typescript, name: TypeScript, category: language, aliases: [TypeScript, "=TS"], prerequisites: [javascript]}
+  - {slug: java, name: Java, category: language, aliases: [Java, Core Java, J2EE, Spring Boot]}
+  - {slug: sql, name: SQL, category: database, aliases: [SQL, SQL queries, T-SQL, PL/SQL, MySQL, SQLite]}
+  - {slug: postgresql, name: PostgreSQL, category: database, aliases: [PostgreSQL, Postgres, psql], prerequisites: [sql]}
+  - {slug: relational-db-design, name: Database design & DBMS, category: database,
+     aliases: [DBMS, RDBMS, database design, database schema, normalization, normalisation, relational database,
+               relational databases, ER diagram, ACID, indexing, MySQL, SQL Server, Oracle Database]}
+  - {slug: nosql, name: NoSQL databases, category: database, aliases: [NoSQL, MongoDB, Mongo, DynamoDB, Cassandra, Firebase, Firestore]}
+  - {slug: html-css, name: HTML & CSS, category: web, aliases: [HTML, HTML5, CSS, CSS3, Tailwind, Tailwind CSS, Bootstrap, Sass, SCSS]}
+  - {slug: responsive-design, name: Responsive design, category: web,
+     aliases: [responsive design, responsive web design, mobile-first, media queries, Flexbox, CSS Grid], prerequisites: [html-css]}
+  - {slug: react, name: React, category: framework, aliases: [React, React.js, ReactJS, React Hooks, Next.js, NextJS],
+     prerequisites: [javascript, html-css]}
+  - {slug: state-management, name: State management, category: framework,
+     aliases: [Redux, Redux Toolkit, Zustand, Context API, state management, MobX, Recoil, TanStack Query, React Query],
+     prerequisites: [react]}
+  - {slug: nodejs, name: Node.js & Express, category: framework, aliases: [Node.js, NodeJS, Express.js, ExpressJS, "=Express", NestJS],
+     prerequisites: [javascript]}
+  - {slug: python-web, name: Python web frameworks, category: framework, aliases: [FastAPI, Django, Flask, Django REST Framework, "=DRF"],
+     prerequisites: [python]}
+  - {slug: http-web, name: HTTP & web fundamentals, category: web,
+     aliases: [HTTP, HTTPS, web fundamentals, cookies, CORS, status codes, client-server]}
+  - {slug: rest-api, name: REST APIs, category: web,
+     aliases: ["=REST", RESTful, REST API, REST APIs, RESTful API, RESTful APIs, API development, API design, web services,
+               Postman, OpenAPI, Swagger], prerequisites: [http-web]}
+  - {slug: auth-security, name: Web security & authentication, category: practices,
+     aliases: [authentication, authorization, authorisation, JWT, OAuth, OAuth2, OWASP, web security, XSS, CSRF, bcrypt,
+               SQL injection], prerequisites: [http-web]}
+  - {slug: caching, name: Caching, category: practices, aliases: [caching, Redis, Memcached, "=CDN"]}
+  - {slug: system-design, name: System design basics, category: practices,
+     aliases: [system design, scalability, load balancing, load balancer, microservices, distributed systems, high availability]}
+  - {slug: dsa, name: Data structures, category: cs_fundamentals,
+     aliases: [data structures, "=DSA", linked list, linked lists, binary tree, binary trees, hash map, hashmap, hash table,
+               stacks, queues, heaps, graphs, trie, LeetCode, competitive programming, CodeChef, Codeforces]}
+  - {slug: algorithms, name: Algorithms & complexity, category: cs_fundamentals,
+     aliases: [algorithms, Big O, Big-O, time complexity, space complexity, dynamic programming, sorting algorithms,
+               binary search, recursion, greedy algorithms, "=BFS", "=DFS"], prerequisites: [dsa]}
+  - {slug: oop, name: Object-oriented programming, category: cs_fundamentals,
+     aliases: ["=OOP", "=OOPs", object-oriented, object oriented programming, design patterns, "=SOLID", inheritance,
+               polymorphism, encapsulation]}
+  - {slug: operating-systems, name: Operating systems, category: cs_fundamentals,
+     aliases: [operating systems, operating system, process scheduling, multithreading, deadlock, deadlocks,
+               memory management, virtual memory]}
+  - {slug: computer-networks, name: Computer networks, category: cs_fundamentals,
+     aliases: [computer networks, computer networking, TCP/IP, "=TCP", "=UDP", OSI model, "=DNS", IP addressing, subnetting]}
+  - {slug: git, name: Git & version control, category: tooling, aliases: [Git, GitHub, GitLab, Bitbucket, version control]}
+  - {slug: linux-cli, name: Linux & command line, category: tooling,
+     aliases: [Linux, Ubuntu, Bash, shell scripting, command line, command-line, Unix]}
+  - {slug: docker, name: Docker & containers, category: tooling,
+     aliases: [Docker, Docker Compose, containerization, containerisation, containerized, Kubernetes, "=K8s"],
+     prerequisites: [linux-cli]}
+  - {slug: testing, name: Software testing, category: practices,
+     aliases: [unit testing, unit tests, software testing, pytest, Jest, JUnit, Vitest, integration tests, integration testing,
+               "=TDD", test-driven, Cypress, Playwright, React Testing Library]}
+  - {slug: ci-cd, name: CI/CD, category: tooling,
+     aliases: [CI/CD, continuous integration, continuous deployment, continuous delivery, GitHub Actions, Jenkins, GitLab CI, CircleCI],
+     prerequisites: [git]}
+  - {slug: cloud-basics, name: Cloud fundamentals, category: tooling,
+     aliases: ["=AWS", Azure, "=GCP", Google Cloud, cloud computing, "=EC2", AWS Lambda, Heroku, Vercel, Netlify]}
+  - {slug: accessibility, name: Web accessibility, category: web,
+     aliases: [accessibility, a11y, WCAG, "=ARIA", screen reader, screen readers], prerequisites: [html-css]}
+  - {slug: frontend-performance, name: Frontend performance, category: web,
+     aliases: [web performance, Lighthouse, lazy loading, code splitting, Core Web Vitals, bundle size,
+               performance optimization, performance optimisation], prerequisites: [javascript]}
+  - {slug: async-programming, name: Asynchronous programming, category: cs_fundamentals,
+     aliases: [async/await, asynchronous programming, asynchronous, promises, event loop, asyncio]}
+  - {slug: excel, name: Excel & spreadsheets, category: data,
+     aliases: [Excel, MS Excel, Microsoft Excel, spreadsheets, spreadsheet, Google Sheets, VLOOKUP, XLOOKUP, pivot table,
+               pivot tables]}
+  - {slug: statistics, name: Statistics, category: data,
+     aliases: [statistics, statistical analysis, hypothesis testing, probability, regression analysis, linear regression,
+               A/B testing, descriptive statistics, inferential statistics]}
+  - {slug: pandas, name: Pandas & NumPy, category: data, aliases: [Pandas, NumPy, Jupyter, Jupyter Notebook, DataFrame, DataFrames],
+     prerequisites: [python]}
+  - {slug: data-visualization, name: Data visualisation, category: data,
+     aliases: [data visualization, data visualisation, Matplotlib, Seaborn, Plotly, dashboards]}
+  - {slug: data-cleaning, name: Data cleaning & wrangling, category: data,
+     aliases: [data cleaning, data wrangling, data preprocessing, data quality, "=ETL", missing values, data transformation]}
+  - {slug: bi-tools, name: BI tools (Power BI / Tableau), category: data,
+     aliases: [Power BI, PowerBI, Tableau, Looker, Looker Studio, "=DAX", Google Data Studio]}
+  - {slug: agile-collaboration, name: Agile & collaboration, category: practices,
+     aliases: [Agile, Scrum, Kanban, Jira, code review, code reviews, pull requests]}

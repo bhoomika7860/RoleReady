@@ -1,0 +1,20 @@
+# Render blueprint (optional). Secrets are set in the Render dashboard, never committed.
+services:
+  - type: web
+    name: roleready
+    runtime: docker
+    plan: starter            # a non-sleeping instance for demo day
+    healthCheckPath: /api/v1/health/ready
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: DATABASE_URL
+        sync: false
+      - key: SESSION_SECRET
+        sync: false
+      - key: NVIDIA_API_KEY
+        sync: false
+      - key: NVIDIA_BASE_URL
+        value: https://integrate.api.nvidia.com/v1
+      - key: NVIDIA_MODEL
+        sync: false

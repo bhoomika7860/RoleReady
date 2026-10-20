@@ -1,0 +1,158 @@
+defaults: {skill: python, purpose: any, source_type: curated_general, authoring: ai_assisted, bank_version: v1}
+questions:
+  - slug: py-e1
+    topic: Lists
+    type: code_output
+    difficulty: easy
+    prompt: |
+      What does this print?
+      ```python
+      nums = [1, 2, 3]
+      nums.append([4, 5])
+      print(len(nums))
+      ```
+    options: [{id: a, text: "3"}, {id: b, text: "4"}, {id: c, text: "5"}, {id: d, text: "An error"}]
+    answer: b
+    explanation: append adds its argument as a single element, so the nested list counts as one item (extend would add two).
+  - slug: py-e2
+    topic: Data types
+    type: mcq_single
+    difficulty: easy
+    prompt: Which of these Python types is immutable?
+    options: [{id: a, text: list}, {id: b, text: dict}, {id: c, text: tuple}, {id: d, text: set}]
+    answer: c
+    explanation: Tuples cannot be changed after creation; lists, dicts and sets can be modified in place.
+  - slug: py-e3
+    topic: Strings
+    type: code_output
+    difficulty: easy
+    prompt: |
+      What does this print?
+      ```python
+      s = "backend"
+      print(s[1:4])
+      ```
+    options: [{id: a, text: "bac"}, {id: b, text: "ack"}, {id: c, text: "acke"}, {id: d, text: "back"}]
+    answer: b
+    explanation: Slicing includes the start index (1, "a") and excludes the end index (4), giving "ack".
+  - slug: py-e4
+    topic: Dictionaries
+    type: mcq_single
+    difficulty: easy
+    prompt: "What does `d.get('x', 0)` return when the key 'x' is not in dict `d`?"
+    options: [{id: a, text: "It raises KeyError"}, {id: b, text: "None"}, {id: c, text: "0"}, {id: d, text: "An empty string"}]
+    answer: c
+    explanation: dict.get returns the default argument (here 0) when the key is missing, instead of raising KeyError.
+  - slug: py-m1
+    topic: Mutable default arguments
+    type: code_output
+    difficulty: medium
+    prompt: |
+      What does this print?
+      ```python
+      def add(item, bucket=[]):
+          bucket.append(item)
+          return bucket
+
+      add(1)
+      print(add(2))
+      ```
+    options: [{id: a, text: "[2]"}, {id: b, text: "[1, 2]"}, {id: c, text: "[1]"}, {id: d, text: "An error"}]
+    answer: b
+    explanation: Default values are evaluated once when the function is defined, so the same list is shared across calls. Use None as the default and create the list inside the function.
+  - slug: py-m2
+    topic: Comprehensions
+    type: code_output
+    difficulty: medium
+    prompt: |
+      What does this print?
+      ```python
+      print([x * x for x in range(5) if x % 2 == 0])
+      ```
+    options: [{id: a, text: "[0, 4, 16]"}, {id: b, text: "[1, 9]"}, {id: c, text: "[0, 1, 4, 9, 16]"}, {id: d, text: "[4, 16]"}]
+    answer: a
+    explanation: range(5) gives 0–4; the even values 0, 2 and 4 are squared to 0, 4 and 16.
+  - slug: py-m-sa1
+    topic: Lists vs tuples
+    type: short_answer
+    difficulty: medium
+    prompt: Explain the difference between a list and a tuple in Python, and give one situation where you would choose a tuple.
+    reference_answer: Lists are mutable ordered sequences; tuples are immutable ordered sequences. Because tuples cannot change they are hashable when their items are hashable, so they can be dictionary keys or set members, and they signal fixed-size records such as coordinates or returning multiple values from a function.
+    key_points:
+      - {id: kp1, text: "Lists are mutable; tuples are immutable", weight: 0.4}
+      - {id: kp2, text: "Tuples are hashable (if their elements are) so they can be dict keys or set members", weight: 0.3}
+      - {id: kp3, text: "A sensible tuple use case such as fixed records, coordinates or returning several values", weight: 0.3}
+    explanation: The core difference is mutability; immutability is what makes tuples usable as dictionary keys and good for fixed-shape data.
+  - slug: py-m-sa2
+    topic: Generators
+    type: short_answer
+    difficulty: medium
+    prompt: What is a generator in Python, and why might you use one instead of building a full list?
+    reference_answer: A generator is a function that uses yield (or a generator expression) to produce values lazily, one at a time, keeping its state between calls. It avoids storing the whole sequence in memory, so it suits large or infinite streams such as reading a big file line by line, and work starts before all values are computed.
+    key_points:
+      - {id: kp1, text: "Produces values lazily using yield or a generator expression", weight: 0.35}
+      - {id: kp2, text: "Uses less memory because the full sequence is not stored", weight: 0.4}
+      - {id: kp3, text: "Example use such as large files, streams or infinite sequences", weight: 0.25}
+    explanation: Generators trade random access for memory efficiency — values are produced on demand.
+  - slug: py-h1
+    topic: Closures
+    type: code_output
+    difficulty: hard
+    prompt: |
+      What does this print?
+      ```python
+      funcs = [lambda: i for i in range(3)]
+      print([f() for f in funcs])
+      ```
+    options: [{id: a, text: "[0, 1, 2]"}, {id: b, text: "[2, 2, 2]"}, {id: c, text: "[0, 0, 0]"}, {id: d, text: "An error"}]
+    answer: b
+    explanation: "The lambdas close over the variable i, not its value at creation time. After the loop i is 2, so every call returns 2. Binding a default (lambda i=i: i) captures the current value."
+  - slug: py-h2
+    topic: Copying
+    type: code_output
+    difficulty: hard
+    prompt: |
+      What does this print?
+      ```python
+      import copy
+      a = [[1, 2], [3, 4]]
+      b = copy.copy(a)
+      b[0].append(99)
+      print(a[0])
+      ```
+    options: [{id: a, text: "[1, 2]"}, {id: b, text: "[1, 2, 99]"}, {id: c, text: "[99]"}, {id: d, text: "An error"}]
+    answer: b
+    explanation: copy.copy makes a shallow copy — the outer list is new but the inner lists are shared, so appending through b changes a. copy.deepcopy would copy the inner lists too.
+  - slug: py-h3
+    topic: Complexity of built-ins
+    type: mcq_single
+    difficulty: hard
+    prompt: You need to check membership of many values against a collection of 1 million items. Which choice is fastest on average?
+    options: [{id: a, text: "A list, using `x in items`"}, {id: b, text: "A set, using `x in items`"}, {id: c, text: "A sorted list with a manual linear scan"}, {id: d, text: "A tuple, using `x in items`"}]
+    answer: b
+    explanation: Set membership uses hashing and is O(1) on average; list and tuple membership are O(n) scans.
+  - slug: py-int1
+    topic: Exceptions
+    type: short_answer
+    difficulty: medium
+    purpose: interview
+    prompt: How do you handle errors in Python code that calls an external API? Walk through what you would catch, what you would let fail, and why.
+    reference_answer: Wrap the call in try/except catching specific exceptions such as timeouts and connection errors rather than a bare except; set a timeout; retry transient failures with backoff a limited number of times; validate the response status and body; log useful context without secrets; and let programming errors propagate so bugs are not hidden. Use finally or context managers to release resources.
+    key_points:
+      - {id: kp1, text: "Catch specific exceptions (timeouts, connection errors) rather than a bare except", weight: 0.3}
+      - {id: kp2, text: "Timeouts and limited retries with backoff for transient failures", weight: 0.25}
+      - {id: kp3, text: "Check response status / validate data before using it", weight: 0.2}
+      - {id: kp4, text: "Let unexpected programming errors surface; log context without secrets; clean up with finally/context managers", weight: 0.25}
+    explanation: Good error handling is specific, bounded and observable — it doesn't swallow bugs.
+  - slug: py-int2
+    topic: Python internals
+    type: short_answer
+    difficulty: medium
+    purpose: interview
+    prompt: Explain what a Python decorator is and describe a practical use for one in a backend application.
+    reference_answer: A decorator is a callable that takes a function and returns a new function that wraps it, applied with the @ syntax. It adds behaviour before or after the original call without changing its code. Backend uses include logging and timing, authentication or permission checks on route handlers, caching results, or retrying calls. functools.wraps preserves the wrapped function's metadata.
+    key_points:
+      - {id: kp1, text: "A function that takes a function and returns a wrapped function", weight: 0.4}
+      - {id: kp2, text: "Adds behaviour without modifying the original function (applied with @)", weight: 0.3}
+      - {id: kp3, text: "A realistic backend use such as auth checks, logging, caching or retries", weight: 0.3}
+    explanation: Decorators are higher-order functions; frameworks like FastAPI and Flask use them for routing.

@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { -webkit-text-size-adjust: 100%; }
+  body { @apply bg-canvas text-ink antialiased; font-feature-settings: "cv11", "ss01"; }
+  :focus-visible { outline: 2px solid #0F766E; outline-offset: 2px; }
+  h1, h2, h3 { @apply text-ink; letter-spacing: -0.01em; }
+  ::selection { background: #CCFBF1; }
+}
+
+@layer components {
+  .card { @apply bg-white border border-line rounded-lg shadow-card; }
+  .input { @apply w-full rounded-md border border-line bg-white px-3 py-2 text-[15px] text-ink placeholder:text-ink-subtle
+           focus:outline-none focus:ring-2 focus:ring-brand-600/40 focus:border-brand-600 disabled:bg-slate-50 disabled:text-ink-subtle; }
+  .label { @apply block text-sm font-medium text-ink mb-1; }
+  .hint { @apply text-xs text-ink-muted mt-1; }
+  .prose-rr { @apply max-w-prose text-[15px] leading-relaxed text-ink; }
+  .prose-rr code { @apply font-mono text-[13px] bg-slate-100 px-1 py-0.5 rounded; }
+  .prose-rr pre { @apply font-mono text-[13px] bg-navy-950 text-slate-100 p-3 rounded-md overflow-x-auto my-2; }
+  .prose-rr pre code { @apply bg-transparent p-0 text-slate-100; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}

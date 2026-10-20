@@ -1,0 +1,21 @@
+Junior Backend Developer — Northwind Fintech (fictional company, demo only)
+
+About the role
+You will join a small team building the payments platform's internal APIs. You will build and maintain REST APIs in
+Python (FastAPI or Django), design PostgreSQL schemas for transaction data and write SQL for reporting dashboards.
+
+Requirements
+- Strong Python fundamentals
+- SQL and relational database design (normalisation, indexing, transactions)
+- REST API design and HTTP fundamentals
+- Git and code review workflows
+- Data structures and algorithms basics
+- Writing unit tests with pytest
+
+Nice to have
+- Docker
+- Redis caching
+- Exposure to cloud deployment
+
+You will communicate clearly with product managers and QA, and collaborate in weekly sprints.
+0–1 years of experience. B.Tech in Computer Science or a related field.

@@ -1,0 +1,148 @@
+defaults: {skill: oop, purpose: any, source_type: curated_general, authoring: ai_assisted, bank_version: v1}
+questions:
+  - slug: oo-e1
+    topic: Encapsulation
+    type: mcq_single
+    difficulty: easy
+    prompt: Which principle bundles data with the methods that operate on it and restricts direct access to internal state?
+    options: [{id: a, text: Encapsulation}, {id: b, text: Inheritance}, {id: c, text: Recursion}, {id: d, text: Compilation}]
+    answer: a
+    explanation: Encapsulation hides internal state behind a controlled interface.
+  - slug: oo-e2
+    topic: Inheritance
+    type: mcq_single
+    difficulty: easy
+    prompt: "If class Dog extends class Animal, which statement is true?"
+    options:
+      - {id: a, text: "Animal inherits Dog's methods"}
+      - {id: b, text: "Dog inherits Animal's accessible fields and methods and can override them"}
+      - {id: c, text: "Dog and Animal can't share any methods"}
+      - {id: d, text: "Dog must re-implement every method of Animal"}
+    answer: b
+    explanation: The subclass inherits from the superclass and may override behaviour.
+  - slug: oo-e3
+    topic: Classes and objects
+    type: mcq_single
+    difficulty: easy
+    prompt: What is the relationship between a class and an object?
+    options:
+      - {id: a, text: "They are the same thing"}
+      - {id: b, text: "A class is a blueprint; an object is an instance created from it"}
+      - {id: c, text: "An object is a blueprint for classes"}
+      - {id: d, text: "Classes only exist at runtime"}
+    answer: b
+    explanation: A class defines structure and behaviour; objects are concrete instances with their own state.
+  - slug: oo-e4
+    topic: Polymorphism
+    type: code_output
+    difficulty: easy
+    prompt: |
+      What does this print?
+      ```python
+      class Shape:
+          def area(self): return 0
+      class Square(Shape):
+          def __init__(self, s): self.s = s
+          def area(self): return self.s * self.s
+      shapes = [Shape(), Square(3)]
+      print([sh.area() for sh in shapes])
+      ```
+    options: [{id: a, text: "[0, 0]"}, {id: b, text: "[0, 9]"}, {id: c, text: "[9, 9]"}, {id: d, text: "An error"}]
+    answer: b
+    explanation: Each object's own area method is called — the override in Square returns 9.
+  - slug: oo-m1
+    topic: Abstraction
+    type: mcq_single
+    difficulty: medium
+    prompt: What is the main purpose of an interface or abstract class?
+    options:
+      - {id: a, text: "To make code run faster"}
+      - {id: b, text: "To define a contract that implementations must follow, so callers depend on behaviour, not concrete classes"}
+      - {id: c, text: "To store global variables"}
+      - {id: d, text: "To prevent any inheritance"}
+    answer: b
+    explanation: Abstractions let you swap implementations (for example a real and a fake payment gateway) without changing callers.
+  - slug: oo-m2
+    topic: Composition
+    type: mcq_single
+    difficulty: medium
+    prompt: '"Favour composition over inheritance" means:'
+    options:
+      - {id: a, text: "Never use classes"}
+      - {id: b, text: "Build behaviour by combining objects that have other objects, rather than deep subclass hierarchies"}
+      - {id: c, text: "Always use multiple inheritance"}
+      - {id: d, text: "Put all code in one class"}
+    answer: b
+    explanation: Composition ("has-a") keeps classes loosely coupled and easier to change than deep "is-a" hierarchies.
+  - slug: oo-m-sa1
+    topic: Four pillars
+    type: short_answer
+    difficulty: medium
+    prompt: Explain polymorphism with an example from a real application.
+    reference_answer: Polymorphism means code can work with objects of different classes through a shared interface, and each object responds in its own way. For example, a checkout calls pay() on a PaymentMethod; CardPayment, UPIPayment and WalletPayment each implement pay differently, and new methods can be added without changing the checkout code. It can be achieved through method overriding (runtime) or overloading (compile-time).
+    key_points:
+      - {id: kp1, text: "Same interface/method call, different behaviour depending on the object", weight: 0.4}
+      - {id: kp2, text: "A concrete example with multiple implementations", weight: 0.35}
+      - {id: kp3, text: "Benefit (extensibility without changing callers) or overriding vs overloading", weight: 0.25}
+    explanation: Polymorphism lets callers stay unchanged when new types are added.
+  - slug: oo-m-sa2
+    topic: SOLID
+    type: short_answer
+    difficulty: medium
+    prompt: Explain the Single Responsibility Principle and how you would apply it to a class that both validates user input and saves it to the database.
+    reference_answer: The Single Responsibility Principle says a class should have one reason to change. A class that validates input and also writes to the database mixes two concerns, so a change in validation rules or in storage forces edits to the same class and makes testing harder. Split it into a validator and a repository (persistence) class, with a service that coordinates them; each can be tested and changed independently.
+    key_points:
+      - {id: kp1, text: "A class should have one responsibility / one reason to change", weight: 0.4}
+      - {id: kp2, text: "Identifies validation and persistence as separate concerns", weight: 0.3}
+      - {id: kp3, text: "Proposes a split (validator + repository/service) and its benefits (testing, change)", weight: 0.3}
+    explanation: Separating concerns makes changes local and testing easier.
+  - slug: oo-h1
+    topic: Design patterns
+    type: mcq_single
+    difficulty: hard
+    prompt: You need to create notification objects (email, SMS, push) based on a user setting without the caller knowing the concrete classes. Which pattern fits?
+    options: [{id: a, text: Factory}, {id: b, text: Singleton}, {id: c, text: Observer}, {id: d, text: Adapter}]
+    answer: a
+    explanation: A factory centralises object creation and returns the right implementation behind a common interface.
+  - slug: oo-h2
+    topic: Liskov substitution
+    type: mcq_single
+    difficulty: hard
+    prompt: A Square subclass of Rectangle overrides setWidth to also change the height, breaking code that expects width and height to be independent. Which principle does this violate?
+    options: [{id: a, text: "Liskov Substitution Principle"}, {id: b, text: "Open/Closed Principle"}, {id: c, text: "Dependency Inversion Principle"}, {id: d, text: "DRY"}]
+    answer: a
+    explanation: Subtypes must be usable wherever the base type is expected without breaking its behaviour.
+  - slug: oo-h3
+    topic: Observer pattern
+    type: mcq_single
+    difficulty: hard
+    prompt: Several parts of an app must react whenever an order's status changes, without the Order class knowing about each one. Which pattern fits?
+    options: [{id: a, text: Observer (publish–subscribe)}, {id: b, text: Singleton}, {id: c, text: Builder}, {id: d, text: Decorator}]
+    answer: a
+    explanation: Observers subscribe to events from the subject, keeping the subject decoupled from its listeners.
+  - slug: oo-int1
+    topic: Design
+    type: short_answer
+    difficulty: medium
+    purpose: interview
+    prompt: Design the main classes for a simple parking-lot system. Explain the responsibilities and relationships.
+    reference_answer: Core classes might be ParkingLot (has many Levels), Level (has many ParkingSpots), ParkingSpot (size, availability) with subtypes or a type field for compact, large and bike spots, Vehicle with subclasses such as Car, Bike and Truck, Ticket (vehicle, spot, entry time) and a PaymentService or FeeCalculator. ParkingLot exposes park and unpark, finds a suitable spot and issues a ticket. Use composition for lot–level–spot, inheritance or an enum for vehicle types, and keep fee rules in a separate strategy so they can change.
+    key_points:
+      - {id: kp1, text: "Identifies key entities (lot, level/spot, vehicle, ticket, payment)", weight: 0.35}
+      - {id: kp2, text: "Clear responsibilities and operations (park/unpark, find spot, issue ticket)", weight: 0.3}
+      - {id: kp3, text: "Relationships: composition, inheritance or enums used sensibly", weight: 0.2}
+      - {id: kp4, text: "Extensibility (e.g. fee strategy, new vehicle types)", weight: 0.15}
+    explanation: Interviewers look for clear responsibilities and sensible relationships.
+  - slug: oo-int2
+    topic: Fundamentals
+    type: short_answer
+    difficulty: medium
+    purpose: interview
+    prompt: What are the four pillars of object-oriented programming? Explain each briefly.
+    reference_answer: Encapsulation bundles data and methods and hides internal state behind an interface. Abstraction exposes only the essential behaviour through interfaces or abstract classes. Inheritance lets a class reuse and extend another class's behaviour. Polymorphism lets the same interface produce different behaviour depending on the object, via overriding or overloading.
+    key_points:
+      - {id: kp1, text: "Encapsulation explained", weight: 0.25}
+      - {id: kp2, text: "Abstraction explained", weight: 0.25}
+      - {id: kp3, text: "Inheritance explained", weight: 0.25}
+      - {id: kp4, text: "Polymorphism explained", weight: 0.25}
+    explanation: The four pillars are the vocabulary of OOP design discussions.

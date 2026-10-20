@@ -1,0 +1,144 @@
+defaults: {skill: algorithms, purpose: any, source_type: curated_general, authoring: ai_assisted, bank_version: v1}
+questions:
+  - slug: al-e1
+    topic: Big O
+    type: mcq_single
+    difficulty: easy
+    prompt: What is the time complexity of a loop that runs once over an array of n elements, doing constant work per element?
+    options: [{id: a, text: "O(1)"}, {id: b, text: "O(n)"}, {id: c, text: "O(n²)"}, {id: d, text: "O(log n)"}]
+    answer: b
+    explanation: The work grows linearly with n.
+  - slug: al-e2
+    topic: Binary search
+    type: mcq_single
+    difficulty: easy
+    prompt: What must be true about an array before you can use binary search on it?
+    options: [{id: a, text: "It must be sorted"}, {id: b, text: "It must have an even length"}, {id: c, text: "It must contain only positive numbers"}, {id: d, text: "It must be stored in a linked list"}]
+    answer: a
+    explanation: Binary search halves the range by comparing with the middle element, which only works on sorted data.
+  - slug: al-e3
+    topic: Big O
+    type: code_output
+    difficulty: easy
+    prompt: |
+      What is the time complexity of this function?
+      ```python
+      def f(n):
+          total = 0
+          for i in range(n):
+              for j in range(n):
+                  total += 1
+          return total
+      ```
+    options: [{id: a, text: "O(n)"}, {id: b, text: "O(n log n)"}, {id: c, text: "O(n²)"}, {id: d, text: "O(2ⁿ)"}]
+    answer: c
+    explanation: Two nested loops of n iterations each perform n × n operations.
+  - slug: al-e4
+    topic: Sorting
+    type: mcq_single
+    difficulty: easy
+    prompt: What is the average time complexity of merge sort?
+    options: [{id: a, text: "O(n)"}, {id: b, text: "O(n log n)"}, {id: c, text: "O(n²)"}, {id: d, text: "O(log n)"}]
+    answer: b
+    explanation: Merge sort splits the array log n times and merges each level in O(n), for O(n log n) in all cases.
+  - slug: al-m1
+    topic: Recursion
+    type: code_output
+    difficulty: medium
+    prompt: |
+      What does this return for f(5)?
+      ```python
+      def f(n):
+          if n <= 1:
+              return n
+          return f(n - 1) + f(n - 2)
+      ```
+    options: [{id: a, text: "3"}, {id: b, text: "5"}, {id: c, text: "8"}, {id: d, text: "13"}]
+    answer: b
+    explanation: This is Fibonacci with f(0)=0, f(1)=1, giving 0, 1, 1, 2, 3, 5 — so f(5) = 5.
+  - slug: al-m2
+    topic: Complexity
+    type: code_output
+    difficulty: medium
+    prompt: |
+      What is the time complexity of this loop?
+      ```python
+      i = 1
+      while i < n:
+          i = i * 2
+      ```
+    options: [{id: a, text: "O(n)"}, {id: b, text: "O(log n)"}, {id: c, text: "O(n log n)"}, {id: d, text: "O(√n)"}]
+    answer: b
+    explanation: i doubles each step, so it reaches n after about log₂ n iterations.
+  - slug: al-m-sa1
+    topic: Dynamic programming
+    type: short_answer
+    difficulty: medium
+    prompt: What is dynamic programming, and how does it improve on the plain recursive Fibonacci function?
+    reference_answer: Dynamic programming solves problems with overlapping subproblems and optimal substructure by solving each subproblem once and reusing the result, either top-down with memoisation or bottom-up with a table. Plain recursive Fibonacci recomputes the same values exponentially many times (about O(2ⁿ)); storing each result makes it O(n) time, and a bottom-up version needs only O(1) extra space by keeping the last two values.
+    key_points:
+      - {id: kp1, text: "Reuse solutions of overlapping subproblems (memoisation or tabulation)", weight: 0.4}
+      - {id: kp2, text: "Plain recursion recomputes values — exponential time", weight: 0.3}
+      - {id: kp3, text: "DP version is O(n) (or notes O(1) space bottom-up)", weight: 0.3}
+    explanation: DP trades memory for not repeating work.
+  - slug: al-m-sa2
+    topic: Sorting
+    type: approach
+    difficulty: medium
+    prompt: Describe how you would find the k largest numbers in an unsorted array of n numbers, and compare at least two approaches by complexity.
+    reference_answer: Option one is to sort the array and take the last k elements, which costs O(n log n). Better is to keep a min-heap of size k — push each number and pop the smallest when the heap grows beyond k — giving O(n log k) time and O(k) space, which is much cheaper when k is small. Quickselect can find the k-th largest in average O(n) time and then partition around it.
+    key_points:
+      - {id: kp1, text: "Sorting approach with O(n log n)", weight: 0.25}
+      - {id: kp2, text: "Min-heap of size k giving O(n log k)", weight: 0.45}
+      - {id: kp3, text: "Mentions quickselect average O(n) or explains when each is better", weight: 0.3}
+    explanation: A size-k heap avoids sorting everything.
+  - slug: al-h1
+    topic: Binary search
+    type: code_output
+    difficulty: hard
+    prompt: |
+      How many times does the loop body run when searching for 7 in [1, 3, 5, 7, 9, 11, 13]?
+      ```python
+      lo, hi = 0, len(a) - 1
+      while lo <= hi:
+          mid = (lo + hi) // 2
+          if a[mid] == x: break
+          elif a[mid] < x: lo = mid + 1
+          else: hi = mid - 1
+      ```
+    options: [{id: a, text: "1"}, {id: b, text: "2"}, {id: c, text: "3"}, {id: d, text: "4"}]
+    answer: a
+    explanation: The first mid is index 3, which holds 7, so the loop breaks on its first iteration.
+  - slug: al-h2
+    topic: Graph algorithms
+    type: mcq_single
+    difficulty: hard
+    prompt: Which algorithm finds shortest paths from one source in a graph with non-negative edge weights?
+    options: [{id: a, text: "Dijkstra's algorithm"}, {id: b, text: "Depth-first search"}, {id: c, text: "Kruskal's algorithm"}, {id: d, text: "Binary search"}]
+    answer: a
+    explanation: Dijkstra's algorithm uses a priority queue to settle nodes in increasing distance order; it needs non-negative weights. Kruskal builds minimum spanning trees.
+  - slug: al-h3
+    topic: Greedy vs DP
+    type: mcq_single
+    difficulty: hard
+    prompt: For coin denominations {1, 3, 4}, a greedy "take the largest coin first" approach makes 6 as 4 + 1 + 1. What does this show?
+    options:
+      - {id: a, text: "Greedy is always optimal for coin change"}
+      - {id: b, text: "Greedy can fail; 3 + 3 uses fewer coins, so dynamic programming is needed in general"}
+      - {id: c, text: "6 can't be made from these coins"}
+      - {id: d, text: "The answer is 4 + 2"}
+    answer: b
+    explanation: The optimal answer is two coins (3 + 3). Greedy works only for some coin systems; DP finds the minimum for any set.
+  - slug: al-int1
+    topic: Complexity analysis
+    type: short_answer
+    difficulty: medium
+    purpose: interview
+    prompt: Explain Big-O notation to a junior developer and why it matters when choosing an algorithm.
+    reference_answer: "Big-O describes how an algorithm's running time or memory grows as the input size grows, focusing on the dominant term and ignoring constants — for example O(n) grows linearly while O(n²) grows quadratically. It usually describes the worst case. It matters because for large inputs the growth rate dominates: an O(n log n) sort will beat an O(n²) one on a million items even if it is slower on ten. It also covers space complexity, and constants and real data still matter in practice."
+    key_points:
+      - {id: kp1, text: "Describes growth of time/space as input size grows", weight: 0.35}
+      - {id: kp2, text: "Ignores constants/lower-order terms; usually worst case", weight: 0.2}
+      - {id: kp3, text: "Concrete comparison of classes (e.g. O(n log n) vs O(n²)) for large inputs", weight: 0.3}
+      - {id: kp4, text: "Mentions space complexity or practical caveats", weight: 0.15}
+    explanation: Growth rate decides what scales.

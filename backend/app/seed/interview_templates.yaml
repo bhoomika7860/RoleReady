@@ -1,0 +1,14 @@
+# Project deep-dive templates. {name} is filled with a project or experience title from the user's own resume.
+# Wording never assumes the candidate built every part of the project.
+version: pt-1
+templates:
+  - id: walkthrough
+    text: "Walk me through {name}. What was your specific contribution, and what is one technical decision you would revisit?"
+  - id: hardest-problem
+    text: "In {name}, what was the hardest technical problem you or your team faced, and how was it approached?"
+  - id: testing
+    text: "How was {name} tested or validated? What would you add to that testing with more time?"
+  - id: scale
+    text: "If {name} had to handle 100 times more users or data, what would likely break first, and how would you address it?"
+  - id: architecture
+    text: "Explain how {name} is structured to someone new to the project. Why was that design chosen, and what trade-offs did it involve?"

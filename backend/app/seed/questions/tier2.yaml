@@ -1,0 +1,275 @@
+# Second-tier skills used by diagnostics (2 items each) and checkpoints (6 items each).
+defaults: {purpose: any, source_type: curated_general, authoring: ai_assisted, bank_version: v1}
+questions:
+  # ---------------- relational-db-design
+  - {slug: db-e1, skill: relational-db-design, topic: Keys, type: mcq_single, difficulty: easy,
+     prompt: "What is a foreign key?",
+     options: [{id: a, text: "A column that uniquely identifies each row of its own table"}, {id: b, text: "A column that references the primary key of another table"}, {id: c, text: "An encrypted column"}, {id: d, text: "A column that can never be NULL"}],
+     answer: b, explanation: "A foreign key links rows to another table's primary key and enforces referential integrity."}
+  - {slug: db-e2, skill: relational-db-design, topic: ACID, type: mcq_single, difficulty: easy,
+     prompt: "In ACID, what does Atomicity guarantee?",
+     options: [{id: a, text: "Transactions run in parallel"}, {id: b, text: "All operations in a transaction succeed or none do"}, {id: c, text: "Data is stored in atoms"}, {id: d, text: "Every query is fast"}],
+     answer: b, explanation: "Atomicity means a transaction is all-or-nothing."}
+  - {slug: db-m1, skill: relational-db-design, topic: Normalisation, type: mcq_single, difficulty: medium,
+     prompt: "A table orders(order_id, customer_id, customer_name, customer_city, product) repeats customer details on every order. What normalisation step fixes this?",
+     options: [{id: a, text: "Move customer details into a customers table referenced by customer_id"}, {id: b, text: "Add an index on customer_name"}, {id: c, text: "Store everything in one JSON column"}, {id: d, text: "Duplicate the table"}],
+     answer: a, explanation: "Customer attributes depend on customer_id, not on the order; separating them removes update anomalies (towards 3NF)."}
+  - slug: db-m-sa1
+    skill: relational-db-design
+    topic: Indexes
+    type: short_answer
+    difficulty: medium
+    prompt: What is a database index, how does it speed up queries, and what does it cost?
+    reference_answer: An index is an extra data structure, usually a B-tree, that keeps a column's values sorted with pointers to rows, so the database can find matching rows without scanning the whole table. It speeds up lookups, joins, range queries and sorting on that column. The costs are extra storage and slower inserts, updates and deletes because the index must be maintained, so you index columns that are frequently filtered or joined on.
+    key_points:
+      - {id: kp1, text: "A separate sorted structure (e.g. B-tree) pointing to rows", weight: 0.35}
+      - {id: kp2, text: "Avoids full table scans for filters, joins or sorting", weight: 0.35}
+      - {id: kp3, text: "Costs: storage and slower writes; index selectively", weight: 0.3}
+    explanation: Indexes trade write cost and space for faster reads.
+  - {slug: db-h1, skill: relational-db-design, topic: Isolation, type: mcq_single, difficulty: hard,
+     prompt: "Two transactions read the same stock count (5), each sells one item and writes 4. The final count is 4 instead of 3. What is this anomaly called?",
+     options: [{id: a, text: "Lost update"}, {id: b, text: "Phantom read"}, {id: c, text: "Deadlock"}, {id: d, text: "Normalisation"}],
+     answer: a, explanation: "One write overwrote the other. Row locking (SELECT … FOR UPDATE), an atomic UPDATE stock = stock - 1, or a stricter isolation level prevents it."}
+  - {slug: db-h2, skill: relational-db-design, topic: Composite indexes, type: mcq_single, difficulty: hard,
+     prompt: "An index exists on (last_name, first_name). Which query can use it most effectively?",
+     options: [{id: a, text: "WHERE first_name = 'Asha'"}, {id: b, text: "WHERE last_name = 'Rao' AND first_name = 'Asha'"}, {id: c, text: "WHERE first_name LIKE '%sha'"}, {id: d, text: "ORDER BY first_name"}],
+     answer: b, explanation: "Composite indexes are used left-to-right; filtering on the leading column (and then the next) uses the index."}
+  - slug: db-int1
+    skill: relational-db-design
+    topic: Schema design
+    type: short_answer
+    difficulty: medium
+    purpose: interview
+    prompt: Design a database schema for a college course-registration system. Explain your tables, keys and how you'd prevent double registration.
+    reference_answer: Tables such as students(id, name, email unique), courses(id, code unique, title, capacity), and a junction table enrollments(student_id, course_id, enrolled_at) with foreign keys to both and a unique constraint on (student_id, course_id) to prevent double registration. Add indexes for lookups by student and by course. Enforce capacity in a transaction by locking the course row or using a conditional insert. Normalise to avoid repeating student details per enrollment.
+    key_points:
+      - {id: kp1, text: "Separate students and courses tables with primary keys", weight: 0.25}
+      - {id: kp2, text: "Junction table for the many-to-many relationship with foreign keys", weight: 0.3}
+      - {id: kp3, text: "Unique constraint on (student, course) to prevent duplicates", weight: 0.25}
+      - {id: kp4, text: "Indexes, capacity enforcement or normalisation discussed", weight: 0.2}
+    explanation: Constraints in the database enforce rules even when application code has bugs.
+  # ---------------- http-web
+  - {slug: hw-e1, skill: http-web, topic: HTTP basics, type: mcq_single, difficulty: easy,
+     prompt: "Which part of an HTTP request carries metadata such as Content-Type and Authorization?",
+     options: [{id: a, text: "Headers"}, {id: b, text: "The status line"}, {id: c, text: "The URL fragment (#...)"}, {id: d, text: "The DNS record"}],
+     answer: a, explanation: "Headers carry request and response metadata; the body carries the payload."}
+  - {slug: hw-e2, skill: http-web, topic: Status codes, type: mcq_single, difficulty: easy,
+     prompt: "What does a 404 status code mean?",
+     options: [{id: a, text: "Server error"}, {id: b, text: "The resource was not found"}, {id: c, text: "Redirect"}, {id: d, text: "Success"}],
+     answer: b, explanation: "4xx codes are client errors; 404 means the server has nothing at that URL."}
+  - {slug: hw-m1, skill: http-web, topic: CORS, type: mcq_single, difficulty: medium,
+     prompt: "A React app on http://localhost:5173 calls an API on http://localhost:8000 and the browser blocks the response. What is the cause?",
+     options: [{id: a, text: "The API is down"}, {id: b, text: "Different ports make it a different origin, so the API must allow it via CORS headers (or use a dev proxy)"}, {id: c, text: "React can't call APIs"}, {id: d, text: "JSON is not supported"}],
+     answer: b, explanation: "An origin is scheme + host + port. Cross-origin requests need Access-Control-Allow-Origin from the server; a same-origin proxy avoids it."}
+  - slug: hw-m-sa1
+    skill: http-web
+    topic: Cookies
+    type: short_answer
+    difficulty: medium
+    prompt: What do the HttpOnly, Secure and SameSite cookie attributes do, and why do they matter for session cookies?
+    reference_answer: HttpOnly stops JavaScript from reading the cookie, which limits theft through XSS. Secure means the cookie is only sent over HTTPS, so it can't be sniffed on plain HTTP. SameSite controls whether the cookie is sent on cross-site requests — Lax or Strict reduce CSRF risk. Together they protect session tokens that would otherwise let an attacker impersonate the user.
+    key_points:
+      - {id: kp1, text: "HttpOnly: not readable by JavaScript (XSS protection)", weight: 0.35}
+      - {id: kp2, text: "Secure: sent only over HTTPS", weight: 0.3}
+      - {id: kp3, text: "SameSite: limits cross-site sending (CSRF protection)", weight: 0.35}
+    explanation: Each attribute closes a different attack path to the session.
+  - {slug: hw-h1, skill: http-web, topic: Caching, type: mcq_single, difficulty: hard,
+     prompt: "A browser has a cached copy with ETag \"v7\". It sends If-None-Match: \"v7\" and the resource is unchanged. What should the server return?",
+     options: [{id: a, text: "200 with the full body"}, {id: b, text: "304 Not Modified with no body"}, {id: c, text: "404"}, {id: d, text: "201"}],
+     answer: b, explanation: "304 tells the browser to reuse its cached copy, saving bandwidth."}
+  - {slug: hw-h2, skill: http-web, topic: HTTPS, type: mcq_single, difficulty: hard,
+     prompt: "What does TLS (HTTPS) provide that plain HTTP does not?",
+     options: [{id: a, text: "Faster responses only"}, {id: b, text: "Encryption in transit, integrity, and server authentication via certificates"}, {id: c, text: "Protection against SQL injection"}, {id: d, text: "Automatic login"}],
+     answer: b, explanation: "TLS encrypts traffic, detects tampering and proves the server's identity; it doesn't fix application bugs."}
+  - slug: hw-int1
+    skill: http-web
+    topic: Web fundamentals
+    type: short_answer
+    difficulty: medium
+    purpose: interview
+    prompt: What happens, step by step, when you type a URL into the browser and press Enter?
+    reference_answer: The browser parses the URL and checks caches, then resolves the domain to an IP address through DNS. It opens a TCP connection (and a TLS handshake for HTTPS), sends an HTTP request with headers, and the server or load balancer routes it to the application, which returns a response with a status code, headers and body. The browser parses the HTML, requests CSS, JavaScript and images, builds the DOM and CSSOM, runs scripts, and lays out and paints the page.
+    key_points:
+      - {id: kp1, text: "DNS resolution to an IP address", weight: 0.25}
+      - {id: kp2, text: "TCP connection and TLS handshake for HTTPS", weight: 0.2}
+      - {id: kp3, text: "HTTP request/response with status, headers, body", weight: 0.25}
+      - {id: kp4, text: "Browser parsing, fetching sub-resources, rendering", weight: 0.3}
+    explanation: A classic question that tests the whole web stack.
+  # ---------------- typescript
+  - {slug: ts-e1, skill: typescript, topic: Basics, type: mcq_single, difficulty: easy,
+     prompt: "What is TypeScript's main benefit over plain JavaScript?",
+     options: [{id: a, text: "It runs faster in the browser"}, {id: b, text: "Static type checking catches many errors before the code runs"}, {id: c, text: "It replaces HTML"}, {id: d, text: "It doesn't need to be compiled"}],
+     answer: b, explanation: "TypeScript adds types that are checked at compile time and then removed; runtime speed is the same."}
+  - {slug: ts-e2, skill: typescript, topic: Union types, type: mcq_single, difficulty: easy,
+     prompt: "What does the type `string | null` mean?",
+     options: [{id: a, text: "A string that is never null"}, {id: b, text: "A value that is either a string or null"}, {id: c, text: "An array of strings"}, {id: d, text: "A nullable number"}],
+     answer: b, explanation: "| creates a union type; you must check for null before using string methods."}
+  - {slug: ts-m1, skill: typescript, topic: Narrowing, type: mcq_single, difficulty: medium,
+     prompt: "Given `function len(x: string | string[])`, how do you safely get a count in both cases?",
+     options: [{id: a, text: "return x.length — both strings and arrays have length"}, {id: b, text: "return x.size"}, {id: c, text: "return (x as number)"}, {id: d, text: "It can't be done"}],
+     answer: a, explanation: "length exists on both members of the union, so TypeScript allows it. For members without a shared property you would narrow with typeof or Array.isArray."}
+  - slug: ts-m-sa1
+    skill: typescript
+    topic: Types vs interfaces
+    type: short_answer
+    difficulty: medium
+    prompt: Explain the difference between `any` and `unknown` in TypeScript and when you would use `unknown`.
+    reference_answer: any switches off type checking — you can do anything with the value, so mistakes slip through. unknown also accepts any value but forces you to narrow it (with typeof, instanceof or a schema check) before using it. Use unknown for data from outside the program, such as JSON from an API or a caught error, so you validate it before trusting it.
+    key_points:
+      - {id: kp1, text: "any disables type checking", weight: 0.35}
+      - {id: kp2, text: "unknown requires narrowing/validation before use", weight: 0.4}
+      - {id: kp3, text: "Use case: external data such as API responses or caught errors", weight: 0.25}
+    explanation: unknown is the type-safe way to say "I don't know yet".
+  - {slug: ts-h1, skill: typescript, topic: Generics, type: mcq_single, difficulty: hard,
+     prompt: "What does `function first<T>(items: T[]): T | undefined` give you compared with `(items: any[]): any`?",
+     options: [{id: a, text: "Nothing different"}, {id: b, text: "The return type follows the input — first([1,2]) is number | undefined — so callers keep type safety"}, {id: c, text: "It runs faster"}, {id: d, text: "It only works with strings"}],
+     answer: b, explanation: "Generics preserve the relationship between input and output types instead of losing them to any."}
+  - {slug: ts-h2, skill: typescript, topic: Utility types, type: mcq_single, difficulty: hard,
+     prompt: "Which utility type makes every property of `User` optional, for example for a PATCH payload?",
+     options: [{id: a, text: "Partial<User>"}, {id: b, text: "Required<User>"}, {id: c, text: "Readonly<User>"}, {id: d, text: "Record<User>"}],
+     answer: a, explanation: "Partial<T> marks all properties optional; Pick and Omit select subsets."}
+  # ---------------- operating-systems
+  - {slug: os-e1, skill: operating-systems, topic: Processes and threads, type: mcq_single, difficulty: easy,
+     prompt: "What is the main difference between a process and a thread?",
+     options: [{id: a, text: "Threads of the same process share memory; processes have separate address spaces"}, {id: b, text: "Processes are always faster"}, {id: c, text: "Threads can't run concurrently"}, {id: d, text: "There is no difference"}],
+     answer: a, explanation: "Threads share their process's memory, which makes communication cheap but needs synchronisation."}
+  - {slug: os-e2, skill: operating-systems, topic: Scheduling, type: mcq_single, difficulty: easy,
+     prompt: "Which scheduling algorithm gives each process a fixed time slice in turn?",
+     options: [{id: a, text: "First-come, first-served"}, {id: b, text: "Round robin"}, {id: c, text: "Shortest job first"}, {id: d, text: "Priority inversion"}],
+     answer: b, explanation: "Round robin cycles through ready processes with a fixed quantum."}
+  - {slug: os-m1, skill: operating-systems, topic: Deadlock, type: mcq_multi, difficulty: medium,
+     prompt: "Which are necessary conditions for a deadlock? (Select all that apply.)",
+     options: [{id: a, text: "Mutual exclusion"}, {id: b, text: "Hold and wait"}, {id: c, text: "No preemption"}, {id: d, text: "Circular wait"}, {id: e, text: "Round-robin scheduling"}],
+     answer: [a, b, c, d], explanation: "The four Coffman conditions must all hold; breaking any one (such as ordering lock acquisition to prevent circular wait) prevents deadlock."}
+  - slug: os-m-sa1
+    skill: operating-systems
+    topic: Virtual memory
+    type: short_answer
+    difficulty: medium
+    prompt: What is virtual memory and what is a page fault?
+    reference_answer: Virtual memory gives each process its own large, contiguous address space that the OS maps to physical memory in fixed-size pages through page tables, with the MMU translating addresses. Pages not currently in RAM can live on disk. A page fault occurs when a process accesses a page that isn't in physical memory; the OS loads it from disk (evicting another page if needed) and resumes the process. Many page faults cause thrashing.
+    key_points:
+      - {id: kp1, text: "Each process gets its own address space mapped to physical memory via pages/page tables", weight: 0.4}
+      - {id: kp2, text: "Pages can be stored on disk when not in RAM", weight: 0.2}
+      - {id: kp3, text: "Page fault = access to a page not in RAM; OS loads it (possibly evicting another)", weight: 0.4}
+    explanation: Virtual memory provides isolation and lets programs use more memory than RAM.
+  - {slug: os-h1, skill: operating-systems, topic: Synchronisation, type: mcq_single, difficulty: hard,
+     prompt: "Two threads increment a shared counter 1,000 times each without locking. The result is sometimes below 2,000. Why?",
+     options: [{id: a, text: "Increment is a read-modify-write that can interleave (race condition), losing updates"}, {id: b, text: "Threads can't share variables"}, {id: c, text: "The CPU skips instructions"}, {id: d, text: "Integers overflow at 2,000"}],
+     answer: a, explanation: "Both threads can read the same value and write back the same result. A mutex or atomic increment fixes it."}
+  - {slug: os-h2, skill: operating-systems, topic: Memory, type: mcq_single, difficulty: hard,
+     prompt: "A system spends most of its time swapping pages in and out and makes little progress. What is this called?",
+     options: [{id: a, text: "Thrashing"}, {id: b, text: "Starvation"}, {id: c, text: "Context switching"}, {id: d, text: "Spooling"}],
+     answer: a, explanation: "Thrashing happens when the working sets of processes exceed physical memory."}
+  - slug: os-int1
+    skill: operating-systems
+    topic: Concurrency
+    type: short_answer
+    difficulty: medium
+    purpose: interview
+    prompt: Explain what a deadlock is, give an example, and describe one way to prevent it.
+    reference_answer: A deadlock is when two or more threads or processes wait forever for resources held by each other. For example thread A locks account X then waits for Y, while thread B locks Y then waits for X. It requires mutual exclusion, hold and wait, no preemption and circular wait. Prevent it by always acquiring locks in a consistent global order, using timeouts or try-lock, or acquiring all needed locks at once.
+    key_points:
+      - {id: kp1, text: "Definition: processes/threads waiting on each other forever", weight: 0.3}
+      - {id: kp2, text: "A concrete two-lock example", weight: 0.3}
+      - {id: kp3, text: "A prevention strategy (lock ordering, timeouts, all-at-once)", weight: 0.4}
+    explanation: Lock ordering is the most common practical fix.
+  # ---------------- pandas
+  - {slug: pd-e1, skill: pandas, topic: Selection, type: mcq_single, difficulty: easy,
+     prompt: "Which pandas expression selects rows of df where the 'city' column equals 'Pune'?",
+     options: [{id: a, text: "df[df['city'] == 'Pune']"}, {id: b, text: "df.select('city' = 'Pune')"}, {id: c, text: "df.where('Pune')"}, {id: d, text: "df['Pune']"}],
+     answer: a, explanation: "A boolean mask inside [] filters rows."}
+  - {slug: pd-e2, skill: pandas, topic: Missing data, type: mcq_single, difficulty: easy,
+     prompt: "How do you count missing values in each column of a DataFrame df?",
+     options: [{id: a, text: "df.isna().sum()"}, {id: b, text: "df.count()"}, {id: c, text: "df.missing()"}, {id: d, text: "len(df)"}],
+     answer: a, explanation: "isna() marks missing cells as True; summing counts them per column."}
+  - {slug: pd-m1, skill: pandas, topic: Grouping, type: code_output, difficulty: medium,
+     prompt: "df has columns region and sales with rows (N, 10), (N, 30), (S, 5). What does df.groupby('region')['sales'].mean() return for N?",
+     options: [{id: a, text: "40"}, {id: b, text: "20.0"}, {id: c, text: "15.0"}, {id: d, text: "10"}],
+     answer: b, explanation: "Group N has 10 and 30, so its mean is 20.0."}
+  - slug: pd-m-sa1
+    skill: pandas
+    topic: Merging
+    type: short_answer
+    difficulty: medium
+    prompt: Explain how you would combine an orders DataFrame with a customers DataFrame in pandas, and what to check after the merge.
+    reference_answer: Use pd.merge(orders, customers, on='customer_id', how='left') so every order is kept even if a customer record is missing. After merging, check that the row count didn't unexpectedly grow (duplicate keys in customers create extra rows — the validate='many_to_one' option catches this), count rows with missing customer fields, and confirm key data types match before the merge.
+    key_points:
+      - {id: kp1, text: "pd.merge / join on the key column with an appropriate how (left/inner)", weight: 0.4}
+      - {id: kp2, text: "Check row counts / duplicate keys after merging", weight: 0.35}
+      - {id: kp3, text: "Check unmatched rows (NaNs) or key dtypes", weight: 0.25}
+    explanation: Merges silently duplicate or drop rows if keys aren't what you expect.
+  - {slug: pd-h1, skill: pandas, topic: Performance, type: mcq_single, difficulty: hard,
+     prompt: "Which is the fastest way to add a column total = price * qty to a DataFrame with millions of rows?",
+     options: [{id: a, text: "df['total'] = df['price'] * df['qty']"}, {id: b, text: "A Python for loop over df.iterrows()"}, {id: c, text: "df.apply(lambda r: r.price * r.qty, axis=1)"}, {id: d, text: "Writing each row to a list first"}],
+     answer: a, explanation: "Vectorised column arithmetic runs in optimised C code; row-wise loops and apply are far slower."}
+  - {slug: pd-h2, skill: pandas, topic: SettingWithCopy, type: mcq_single, difficulty: hard,
+     prompt: "Why can `df[df.age > 30]['segment'] = 'senior'` fail to change df?",
+     options: [{id: a, text: "Chained indexing may modify a temporary copy; use df.loc[df.age > 30, 'segment'] = 'senior'"}, {id: b, text: "Strings can't be assigned"}, {id: c, text: "age must be a string"}, {id: d, text: "DataFrames are immutable"}],
+     answer: a, explanation: "Chained indexing can return a copy; a single .loc call assigns into the original."}
+  # ---------------- data-visualization
+  - {slug: dv-e1, skill: data-visualization, topic: Chart choice, type: mcq_single, difficulty: easy,
+     prompt: "Which chart best shows how monthly revenue changed over two years?",
+     options: [{id: a, text: "Line chart"}, {id: b, text: "Pie chart"}, {id: c, text: "Scatter plot of two unrelated variables"}, {id: d, text: "Word cloud"}],
+     answer: a, explanation: "Line charts show trends over a continuous time axis."}
+  - {slug: dv-e2, skill: data-visualization, topic: Chart choice, type: mcq_single, difficulty: easy,
+     prompt: "You want to compare sales across 8 product categories. Which chart is clearest?",
+     options: [{id: a, text: "A sorted bar chart"}, {id: b, text: "A 3D pie chart"}, {id: c, text: "A line chart"}, {id: d, text: "A radar chart"}],
+     answer: a, explanation: "Bars on a common baseline make comparisons easy; sorting helps ranking."}
+  - {slug: dv-m1, skill: data-visualization, topic: Honest charts, type: mcq_single, difficulty: medium,
+     prompt: "A bar chart's y-axis starts at 95 instead of 0, making a change from 96 to 98 look huge. What's the problem?",
+     options: [{id: a, text: "Truncated axis exaggerates differences; bar charts should start at zero"}, {id: b, text: "Bars should be red"}, {id: c, text: "Nothing — it's more readable"}, {id: d, text: "It needs a legend"}],
+     answer: a, explanation: "Bar length encodes value, so a non-zero baseline distorts the comparison."}
+  - slug: dv-m-sa1
+    skill: data-visualization
+    topic: Dashboard design
+    type: short_answer
+    difficulty: medium
+    prompt: What makes a dashboard useful to a business team? Name three design principles.
+    reference_answer: A useful dashboard answers specific questions for a specific audience, putting the most important metrics first. It uses the right chart for each comparison, keeps colours meaningful and consistent (highlighting what needs attention), labels axes and units clearly, gives context such as targets or previous periods, avoids clutter and decoration, and lets users drill down or filter where needed.
+    key_points:
+      - {id: kp1, text: "Designed around audience questions with key metrics first", weight: 0.35}
+      - {id: kp2, text: "Appropriate chart types, clear labels/units, minimal clutter", weight: 0.35}
+      - {id: kp3, text: "Context (targets, comparisons) or purposeful colour/filters", weight: 0.3}
+    explanation: Dashboards exist to support decisions, not to show every number.
+  - {slug: dv-h1, skill: data-visualization, topic: Distributions, type: mcq_single, difficulty: hard,
+     prompt: "Which chart best compares the distribution of delivery times across 5 cities, including outliers?",
+     options: [{id: a, text: "Box plots (or violin plots) per city"}, {id: b, text: "A pie chart per city"}, {id: c, text: "A single line chart"}, {id: d, text: "A table of averages"}],
+     answer: a, explanation: "Box plots show median, spread and outliers side by side; averages hide distribution shape."}
+  - {slug: dv-h2, skill: data-visualization, topic: Accessibility, type: mcq_single, difficulty: hard,
+     prompt: "How can you make a chart readable for people with red–green colour blindness?",
+     options: [{id: a, text: "Use a colour-blind-safe palette and add direct labels or patterns so colour isn't the only cue"}, {id: b, text: "Use only red and green"}, {id: c, text: "Remove the legend"}, {id: d, text: "Make the chart smaller"}],
+     answer: a, explanation: "Never rely on colour alone; labels, shapes and safe palettes keep meaning accessible."}
+  # ---------------- data-cleaning
+  - {slug: dc-e1, skill: data-cleaning, topic: Duplicates, type: mcq_single, difficulty: easy,
+     prompt: "A customer list has the same email appearing several times with slightly different name spellings. What's a sensible first step?",
+     options: [{id: a, text: "Normalise the email (trim, lowercase) and deduplicate on it, reviewing conflicting fields"}, {id: b, text: "Delete all rows"}, {id: c, text: "Keep duplicates — more data is better"}, {id: d, text: "Sort by name"}],
+     answer: a, explanation: "Normalising a reliable key before deduplicating catches near-duplicates."}
+  - {slug: dc-e2, skill: data-cleaning, topic: Data types, type: mcq_single, difficulty: easy,
+     prompt: "A 'price' column contains values like '₹1,299'. What must you do before summing it?",
+     options: [{id: a, text: "Strip the currency symbol and commas and convert to a numeric type"}, {id: b, text: "Nothing"}, {id: c, text: "Convert it to a date"}, {id: d, text: "Sort it alphabetically"}],
+     answer: a, explanation: "Text-formatted numbers must be parsed into numbers before arithmetic."}
+  - {slug: dc-m1, skill: data-cleaning, topic: Missing values, type: mcq_single, difficulty: medium,
+     prompt: "20% of 'income' values are missing, mostly for younger customers. Why is filling them with the overall mean risky?",
+     options: [{id: a, text: "Missingness isn't random here, so the mean biases young customers' incomes upward and hides the pattern"}, {id: b, text: "The mean can't be computed"}, {id: c, text: "It makes the file larger"}, {id: d, text: "There is no risk"}],
+     answer: a, explanation: "When data is missing systematically, simple imputation distorts results; consider group-wise imputation, flags or modelling."}
+  - slug: dc-m-sa1
+    skill: data-cleaning
+    topic: Outliers
+    type: short_answer
+    difficulty: medium
+    prompt: How would you decide whether to remove an outlier from a dataset?
+    reference_answer: First check whether it's an error — a typo, unit mistake, duplicate or impossible value such as an age of 250 — by tracing it to the source; errors should be corrected or removed. If it's a genuine but extreme value, it carries real information, so keep it and use robust statistics such as the median, analyse with and without it, or report it separately. Always document the rule used.
+    key_points:
+      - {id: kp1, text: "Investigate whether it's a data error vs a genuine value", weight: 0.4}
+      - {id: kp2, text: "Fix/remove errors; keep genuine values (robust stats or sensitivity analysis)", weight: 0.35}
+      - {id: kp3, text: "Document the decision/rule", weight: 0.25}
+    explanation: Outliers are not automatically mistakes.
+  - {slug: dc-h1, skill: data-cleaning, topic: Dates, type: mcq_single, difficulty: hard,
+     prompt: "A date column mixes '03/04/2025' entries from India and the US. What's the risk and the fix?",
+     options: [{id: a, text: "DD/MM vs MM/DD is ambiguous; identify each source's format and parse explicitly to ISO dates"}, {id: b, text: "No risk — dates are dates"}, {id: c, text: "Convert dates to text"}, {id: d, text: "Drop the year"}],
+     answer: a, explanation: "Ambiguous formats silently swap day and month; parse per source with an explicit format."}
+  - {slug: dc-h2, skill: data-cleaning, topic: Joins, type: mcq_single, difficulty: hard,
+     prompt: "After joining sales to a product table, total revenue is 30% higher than the finance figure. What is the most likely cause?",
+     options: [{id: a, text: "Duplicate keys in the product table multiplied sales rows"}, {id: b, text: "The finance team is wrong"}, {id: c, text: "Revenue always grows after joins"}, {id: d, text: "The sales table has too few columns"}],
+     answer: a, explanation: "One-to-many matches on a key that should be unique duplicate rows; check key uniqueness before joining."}

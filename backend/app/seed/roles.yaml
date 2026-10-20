@@ -1,0 +1,79 @@
+# Four supported roles. importance: core | required | preferred. weight orders skills within a level.
+# dimension weights are uncalibrated design choices (SRS 9.4) and are labelled as such in the UI.
+roles:
+  - slug: backend-dev
+    name: Backend Developer
+    description: Builds APIs, data models and server-side logic for web products.
+    dimensions: {RA: 0.15, TK: 0.30, PS: 0.20, PE: 0.15, IC: 0.20}
+    skills:
+      - [python, core, 1.00]
+      - [sql, core, 0.95]
+      - [rest-api, core, 0.90]
+      - [relational-db-design, required, 0.85]
+      - [dsa, required, 0.80]
+      - [http-web, required, 0.75]
+      - [python-web, required, 0.70]
+      - [git, required, 0.65]
+      - [auth-security, required, 0.60]
+      - [testing, required, 0.55]
+      - [postgresql, preferred, 0.50]
+      - [docker, preferred, 0.45]
+      - [caching, preferred, 0.40]
+      - [system-design, preferred, 0.35]
+      - [linux-cli, preferred, 0.30]
+      - [nosql, preferred, 0.25]
+  - slug: frontend-dev
+    name: Frontend Developer
+    description: Builds accessible, responsive user interfaces for the web.
+    dimensions: {RA: 0.15, TK: 0.30, PS: 0.15, PE: 0.20, IC: 0.20}
+    skills:
+      - [javascript, core, 1.00]
+      - [html-css, core, 0.95]
+      - [react, core, 0.90]
+      - [typescript, required, 0.85]
+      - [http-web, required, 0.80]
+      - [rest-api, required, 0.75]
+      - [responsive-design, required, 0.70]
+      - [state-management, required, 0.65]
+      - [accessibility, required, 0.60]
+      - [git, required, 0.55]
+      - [async-programming, required, 0.50]
+      - [testing, preferred, 0.45]
+      - [frontend-performance, preferred, 0.40]
+      - [dsa, preferred, 0.35]
+      - [nodejs, preferred, 0.30]
+  - slug: sde-fresher
+    name: Software Engineer (Fresher / Intern)
+    description: Solves problems with code across the stack; campus SDE roles emphasise CS fundamentals.
+    dimensions: {RA: 0.15, TK: 0.25, PS: 0.25, PE: 0.15, IC: 0.20}
+    skills:
+      - [dsa, core, 1.00]
+      - [algorithms, core, 0.95]
+      - [oop, core, 0.90]
+      - [python, required, 0.85]
+      - [sql, required, 0.80]
+      - [operating-systems, required, 0.75]
+      - [computer-networks, required, 0.70]
+      - [relational-db-design, required, 0.65]
+      - [git, required, 0.60]
+      - [java, preferred, 0.50]
+      - [testing, preferred, 0.45]
+      - [system-design, preferred, 0.40]
+      - [linux-cli, preferred, 0.35]
+      - [http-web, preferred, 0.30]
+  - slug: data-analyst
+    name: Data Analyst
+    description: Turns data into decisions with SQL, spreadsheets, statistics and clear visuals.
+    dimensions: {RA: 0.15, TK: 0.30, PS: 0.20, PE: 0.15, IC: 0.20}
+    skills:
+      - [sql, core, 1.00]
+      - [statistics, core, 0.95]
+      - [excel, core, 0.90]
+      - [pandas, required, 0.85]
+      - [data-visualization, required, 0.80]
+      - [data-cleaning, required, 0.75]
+      - [python, required, 0.70]
+      - [bi-tools, preferred, 0.60]
+      - [relational-db-design, preferred, 0.50]
+      - [git, preferred, 0.40]
+      - [agile-collaboration, preferred, 0.30]

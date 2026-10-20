@@ -1,0 +1,137 @@
+defaults: {skill: statistics, purpose: any, source_type: curated_general, authoring: ai_assisted, bank_version: v1}
+questions:
+  - slug: st-e1
+    topic: Central tendency
+    type: mcq_single
+    difficulty: easy
+    prompt: "For the salaries 30k, 32k, 35k, 36k and 400k, which measure best describes a typical salary?"
+    options: [{id: a, text: Mean}, {id: b, text: Median}, {id: c, text: Range}, {id: d, text: Maximum}]
+    answer: b
+    explanation: The median (35k) is robust to the 400k outlier, which drags the mean far above most values.
+  - slug: st-e2
+    topic: Descriptive statistics
+    type: code_output
+    difficulty: easy
+    prompt: What is the median of 4, 8, 1, 9, 6?
+    options: [{id: a, text: "6"}, {id: b, text: "5.6"}, {id: c, text: "8"}, {id: d, text: "1"}]
+    answer: a
+    explanation: Sorted the values are 1, 4, 6, 8, 9; the middle value is 6.
+  - slug: st-e3
+    topic: Probability
+    type: mcq_single
+    difficulty: easy
+    prompt: A fair six-sided die is rolled once. What is the probability of rolling a number greater than 4?
+    options: [{id: a, text: "1/6"}, {id: b, text: "1/3"}, {id: c, text: "1/2"}, {id: d, text: "2/3"}]
+    answer: b
+    explanation: Only 5 and 6 qualify — 2 of 6 outcomes, which is 1/3.
+  - slug: st-e4
+    topic: Correlation
+    type: mcq_single
+    difficulty: easy
+    prompt: "A correlation coefficient of −0.9 between two variables means:"
+    options:
+      - {id: a, text: "No relationship"}
+      - {id: b, text: "A strong negative linear relationship"}
+      - {id: c, text: "One variable causes the other to fall"}
+      - {id: d, text: "A weak positive relationship"}
+    answer: b
+    explanation: Values near −1 indicate a strong negative linear association; correlation alone says nothing about causation.
+  - slug: st-m1
+    topic: Hypothesis testing
+    type: mcq_single
+    difficulty: medium
+    prompt: An A/B test reports p = 0.03 with a significance level of 0.05. What is the correct interpretation?
+    options:
+      - {id: a, text: "There is a 3% chance the new version is better"}
+      - {id: b, text: "If there were truly no difference, results at least this extreme would occur about 3% of the time, so we reject the null hypothesis at 5%"}
+      - {id: c, text: "The new version is 3% better"}
+      - {id: d, text: "The experiment must be repeated 3 times"}
+    answer: b
+    explanation: A p-value is the probability of data this extreme assuming the null hypothesis is true — not the probability that a hypothesis is true.
+  - slug: st-m2
+    topic: Distributions
+    type: mcq_single
+    difficulty: medium
+    prompt: In a normal distribution, roughly what percentage of values lie within one standard deviation of the mean?
+    options: [{id: a, text: "50%"}, {id: b, text: "68%"}, {id: c, text: "95%"}, {id: d, text: "99.7%"}]
+    answer: b
+    explanation: The empirical rule — about 68% within 1σ, 95% within 2σ and 99.7% within 3σ.
+  - slug: st-m-sa1
+    topic: Correlation vs causation
+    type: short_answer
+    difficulty: medium
+    prompt: Ice-cream sales and drowning incidents are strongly correlated. Explain why this doesn't mean ice cream causes drowning, and how you could test a causal claim.
+    reference_answer: Correlation shows two variables move together but not why. Here a confounding variable — hot weather — increases both ice-cream sales and swimming, which raises drownings. To test causation you need a controlled experiment such as a randomised A/B test, or careful analysis that controls for confounders (for example comparing days with the same temperature).
+    key_points:
+      - {id: kp1, text: "Correlation does not imply causation", weight: 0.3}
+      - {id: kp2, text: "Identifies a confounder (hot weather / summer)", weight: 0.4}
+      - {id: kp3, text: "Proposes a randomised experiment or controlling for confounders", weight: 0.3}
+    explanation: Confounders create correlations without a direct causal link.
+  - slug: st-m-sa2
+    topic: Sampling
+    type: short_answer
+    difficulty: medium
+    prompt: What is sampling bias? Give an example of how it could mislead an analysis of customer satisfaction.
+    reference_answer: Sampling bias happens when the sample is not representative of the population, so results don't generalise. For example, surveying only customers who voluntarily leave reviews over-represents very happy or very unhappy people, or surveying only app users misses customers who left. Random sampling, weighting or reaching non-respondents reduces it.
+    key_points:
+      - {id: kp1, text: "Sample isn't representative of the population", weight: 0.4}
+      - {id: kp2, text: "A concrete satisfaction example (self-selection, survivorship, channel bias)", weight: 0.35}
+      - {id: kp3, text: "A mitigation such as random sampling or weighting", weight: 0.25}
+    explanation: Who you ask shapes what you find.
+  - slug: st-h1
+    topic: Conditional probability
+    type: mcq_single
+    difficulty: hard
+    prompt: A disease affects 1% of people. A test detects it 99% of the time and gives false positives 5% of the time. Roughly what is the chance a person who tests positive actually has the disease?
+    options: [{id: a, text: "About 99%"}, {id: b, text: "About 95%"}, {id: c, text: "About 17%"}, {id: d, text: "About 1%"}]
+    answer: c
+    explanation: "Per 10,000 people: 99 true positives and about 495 false positives (5% of 9,900). 99 / 594 ≈ 17% — Bayes' theorem with a low base rate."
+  - slug: st-h2
+    topic: Statistical significance
+    type: mcq_single
+    difficulty: hard
+    prompt: An analyst tests 20 different metrics in one experiment at α = 0.05 and reports the one with p < 0.05. What is the main problem?
+    options:
+      - {id: a, text: "None — a significant result is reliable"}
+      - {id: b, text: "Multiple comparisons: by chance about one of 20 tests will look significant; a correction or a pre-registered primary metric is needed"}
+      - {id: c, text: "The sample is too large"}
+      - {id: d, text: "p-values can't be below 0.05"}
+    answer: b
+    explanation: Testing many hypotheses inflates false positives; corrections like Bonferroni or a pre-declared metric address it.
+  - slug: st-h3
+    topic: Regression
+    type: mcq_single
+    difficulty: hard
+    prompt: In a linear regression of sales on advertising spend, R² = 0.64. What does this mean?
+    options:
+      - {id: a, text: "Advertising causes 64% of sales"}
+      - {id: b, text: "64% of the variance in sales is explained by the linear model with advertising spend"}
+      - {id: c, text: "The slope is 0.64"}
+      - {id: d, text: "The model is 64% accurate on every prediction"}
+    answer: b
+    explanation: R² is the proportion of variance explained by the model; it is not a causal or per-prediction accuracy measure.
+  - slug: st-int1
+    topic: Experiment design
+    type: short_answer
+    difficulty: medium
+    purpose: interview
+    prompt: Your team changed the checkout button colour and wants to know if it increased conversions. How would you design and analyse an A/B test?
+    reference_answer: Define the primary metric (conversion rate) and hypothesis up front. Randomly assign users to control and variant, and estimate the sample size needed for the minimum effect you care about. Run it long enough to cover weekly patterns without peeking and stopping early. Check that groups are balanced, then compare conversion rates with a significance test or confidence interval, and consider practical significance, guardrail metrics and segment effects before rolling out.
+    key_points:
+      - {id: kp1, text: "Clear primary metric and hypothesis defined in advance", weight: 0.2}
+      - {id: kp2, text: "Random assignment to control and variant", weight: 0.25}
+      - {id: kp3, text: "Sample size / duration planning; avoid peeking", weight: 0.25}
+      - {id: kp4, text: "Statistical test or confidence interval plus practical significance/guardrails", weight: 0.3}
+    explanation: Good experiments are designed before data is collected.
+  - slug: st-int2
+    topic: Communicating statistics
+    type: short_answer
+    difficulty: medium
+    purpose: interview
+    prompt: How would you explain a confidence interval to a non-technical manager?
+    reference_answer: A confidence interval is a range of plausible values for something we estimated from a sample, such as average order value. A 95% interval means that if we repeated the sampling many times, about 95% of intervals built this way would contain the true value. A narrower interval means a more precise estimate; it narrows with more data. In practice you can say "we're fairly confident the true average is between X and Y".
+    key_points:
+      - {id: kp1, text: "A range of plausible values for an estimate from a sample", weight: 0.35}
+      - {id: kp2, text: "Correct meaning of 95% (repeated sampling), not 95% probability for this one interval", weight: 0.35}
+      - {id: kp3, text: "Width reflects precision and shrinks with more data; plain-language framing", weight: 0.3}
+    explanation: Clear communication of uncertainty is a core analyst skill.

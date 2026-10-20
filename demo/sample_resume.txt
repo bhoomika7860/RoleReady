@@ -1,0 +1,17 @@
+Priya Sharma
+priya.sharma@example.com | +91 98765 43210 | github.com/priya-example
+EDUCATION
+Example Institute of Technology — B.Tech, Computer Science, 2022 – 2026, CGPA 8.4
+SKILLS
+Python, SQL, Git, FastAPI, HTML, CSS
+PROJECTS
+Campus Events API (Python, FastAPI, PostgreSQL)
+• Made backend for event registration using FastAPI and PostgreSQL
+• Wrote SQL queries to generate attendance reports for club organisers
+• Documented the REST endpoints so the student council could integrate them
+Library Seat Finder (JavaScript, HTML, CSS)
+• Built a web page that shows free seats in the college library from a shared spreadsheet
+EXPERIENCE
+Web Development Intern, Example Startup (fictional), May 2025 – Jul 2025
+• Fixed bugs in an internal dashboard and wrote unit tests with pytest
+• Worked with the team in weekly sprints and reviewed pull requests

@@ -1,0 +1,145 @@
+defaults: {skill: react, purpose: any, source_type: curated_general, authoring: ai_assisted, bank_version: v1}
+questions:
+  - slug: re-e1
+    topic: Props and state
+    type: mcq_single
+    difficulty: easy
+    prompt: Which statement about props in React is correct?
+    options:
+      - {id: a, text: "A component should not modify the props it receives"}
+      - {id: b, text: "Props can only be strings"}
+      - {id: c, text: "Props are stored in the browser's localStorage"}
+      - {id: d, text: "Props are the same as state"}
+    answer: a
+    explanation: Props are read-only inputs passed from the parent; a component changes what it shows via its own state or callbacks.
+  - slug: re-e2
+    topic: Lists
+    type: mcq_single
+    difficulty: easy
+    prompt: Why does React ask for a `key` prop when rendering a list?
+    options:
+      - {id: a, text: "To style each item"}
+      - {id: b, text: "To identify items between renders so it can update, add and remove them correctly"}
+      - {id: c, text: "To sort the list"}
+      - {id: d, text: "To make the list accessible to screen readers"}
+    answer: b
+    explanation: Stable keys let React match old and new items; using array indexes can cause bugs when items are reordered or removed.
+  - slug: re-e3
+    topic: Hooks
+    type: mcq_single
+    difficulty: easy
+    prompt: Which hook stores a value that, when changed via its setter, re-renders the component?
+    options: [{id: a, text: useRef}, {id: b, text: useState}, {id: c, text: useMemo}, {id: d, text: useId}]
+    answer: b
+    explanation: useState returns state and a setter; calling the setter schedules a re-render. Changing a ref's .current does not re-render.
+  - slug: re-e4
+    topic: Events
+    type: mcq_single
+    difficulty: easy
+    prompt: "What is wrong with `<button onClick={handleClick()}>Save</button>`?"
+    options:
+      - {id: a, text: "Nothing"}
+      - {id: b, text: "handleClick runs during render instead of on click; pass handleClick without calling it"}
+      - {id: c, text: "onClick must be lowercase onclick"}
+      - {id: d, text: "Buttons can't have click handlers"}
+    answer: b
+    explanation: Writing handleClick() calls the function immediately while rendering. Pass the function reference or an arrow function.
+  - slug: re-m1
+    topic: useEffect
+    type: mcq_single
+    difficulty: medium
+    prompt: "When does an effect with an empty dependency array (`useEffect(fn, [])`) run?"
+    options:
+      - {id: a, text: "On every render"}
+      - {id: b, text: "After the first render (mount), with its cleanup on unmount"}
+      - {id: c, text: "Never"}
+      - {id: d, text: "Only when props change"}
+    answer: b
+    explanation: An empty array means the effect has no dependencies, so it runs after mount and cleans up on unmount (twice in development Strict Mode to surface bugs).
+  - slug: re-m2
+    topic: State updates
+    type: code_output
+    difficulty: medium
+    prompt: |
+      `count` starts at 0. After one click, what is `count`?
+      ```jsx
+      function onClick() {
+        setCount(count + 1);
+        setCount(count + 1);
+      }
+      ```
+    options: [{id: a, text: "0"}, {id: b, text: "1"}, {id: c, text: "2"}, {id: d, text: "It depends on the browser"}]
+    answer: b
+    explanation: Both calls read the same stale count (0) from this render, so state becomes 1. The updater form setCount(c => c + 1) would give 2.
+  - slug: re-m-sa1
+    topic: State management
+    type: short_answer
+    difficulty: medium
+    prompt: When should state live in a component, be "lifted up" to a parent, or go into context or a store?
+    reference_answer: Keep state in the component that uses it when nothing else needs it. When siblings need the same data, lift it to their closest common parent and pass it down with callbacks. Use context or a store such as Redux or Zustand for widely shared app-level state like the current user or theme, to avoid prop drilling. Server data is often best handled by a data-fetching cache like React Query rather than global state.
+    key_points:
+      - {id: kp1, text: "Keep state local when only one component needs it", weight: 0.3}
+      - {id: kp2, text: "Lift state to the common parent when siblings share it", weight: 0.35}
+      - {id: kp3, text: "Context/store for widely shared state to avoid prop drilling (or a server-state cache)", weight: 0.35}
+    explanation: Put state at the lowest level that serves every component that needs it.
+  - slug: re-m-sa2
+    topic: Rendering
+    type: short_answer
+    difficulty: medium
+    prompt: What causes a React component to re-render, and how would you stop unnecessary re-renders?
+    reference_answer: A component re-renders when its state changes, its parent re-renders, or a context it uses changes. Unnecessary re-renders can be reduced by keeping state close to where it's used, memoising components with React.memo, stabilising callbacks and values with useCallback and useMemo so props don't change identity every render, and splitting context. Measure first with the React Profiler before optimising.
+    key_points:
+      - {id: kp1, text: "Triggers: state change, parent re-render, or context change", weight: 0.4}
+      - {id: kp2, text: "Tools: React.memo, useMemo/useCallback, moving state down or splitting context", weight: 0.4}
+      - {id: kp3, text: "Measure with the Profiler before optimising", weight: 0.2}
+    explanation: Re-renders are usually cheap; optimise the ones you can measure.
+  - slug: re-h1
+    topic: Effects and cleanup
+    type: mcq_single
+    difficulty: hard
+    prompt: A component fetches data in useEffect when `userId` changes. Fast switching between users sometimes shows the wrong user's data. What fixes this?
+    options:
+      - {id: a, text: "Remove userId from the dependency array"}
+      - {id: b, text: "Ignore or abort stale requests in the effect cleanup (e.g. an AbortController or an ignore flag)"}
+      - {id: c, text: "Use var instead of const"}
+      - {id: d, text: "Call the fetch during render"}
+    answer: b
+    explanation: Responses can arrive out of order. The cleanup for the previous userId should abort or ignore its request so only the latest result is applied.
+  - slug: re-h2
+    topic: Reconciliation
+    type: mcq_single
+    difficulty: hard
+    prompt: A list uses array indexes as keys. Deleting the first item makes the text inputs in the remaining rows show the wrong values. Why?
+    options:
+      - {id: a, text: "Inputs can't be used in lists"}
+      - {id: b, text: "React matched rows by index, so each remaining row reused the previous row's DOM input and state"}
+      - {id: c, text: "The browser cached the old values"}
+      - {id: d, text: "Keys must be strings"}
+    answer: b
+    explanation: With index keys, removing item 0 shifts every key, so React keeps the old component instances in the wrong rows. Use a stable id from the data.
+  - slug: re-int1
+    topic: Hooks
+    type: short_answer
+    difficulty: medium
+    purpose: interview
+    prompt: Explain useEffect — what it's for, how the dependency array works, and a common mistake people make with it.
+    reference_answer: useEffect synchronises a component with something outside React, such as fetching data, subscriptions or timers. It runs after render; the dependency array controls when it re-runs — after every render with no array, once with an empty array, or whenever listed values change. A returned function cleans up before the next run and on unmount. Common mistakes include missing dependencies causing stale values, infinite loops from setting state the effect depends on, forgetting cleanup for subscriptions, and using effects for values that could be computed during render.
+    key_points:
+      - {id: kp1, text: "Purpose: side effects / syncing with external systems after render", weight: 0.3}
+      - {id: kp2, text: "Dependency array semantics (none, empty, listed values)", weight: 0.3}
+      - {id: kp3, text: "Cleanup function for subscriptions/timers/stale requests", weight: 0.2}
+      - {id: kp4, text: "A real common mistake (missing deps, infinite loop, unnecessary effect)", weight: 0.2}
+    explanation: Effects are for synchronisation, not for deriving data.
+  - slug: re-int2
+    topic: Architecture
+    type: short_answer
+    difficulty: medium
+    purpose: interview
+    prompt: How would you structure the components and data fetching for a dashboard page that shows a user's profile, a list of tasks and some charts?
+    reference_answer: Split the page into a container that reads route params and fetches data, and presentational components for the profile card, task list and charts. Fetch with a server-state library such as React Query with caching, loading and error states per section so one failure doesn't break the page. Keep shared state like the current user in context, derive chart data with useMemo, lazy-load heavy chart code, and make each section handle its empty state.
+    key_points:
+      - {id: kp1, text: "Break the page into focused components (container vs presentational)", weight: 0.3}
+      - {id: kp2, text: "Data fetching with caching and per-section loading/error states", weight: 0.35}
+      - {id: kp3, text: "Where shared state lives (context/store) and performance (memo, lazy loading)", weight: 0.2}
+      - {id: kp4, text: "Empty states / resilience", weight: 0.15}
+    explanation: Good structure isolates concerns and failures.

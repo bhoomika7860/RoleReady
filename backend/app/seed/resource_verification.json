@@ -1,0 +1,620 @@
+{
+  "https://aws.amazon.com/what-is-cloud-computing/": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://aws.amazon.com/what-is-cloud-computing/",
+    "ok": true,
+    "status": 200
+  },
+  "https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html",
+    "ok": true,
+    "status": 200
+  },
+  "https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html",
+    "ok": true,
+    "status": 200
+  },
+  "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html",
+    "ok": true,
+    "status": 200
+  },
+  "https://cp-algorithms.com/": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://cp-algorithms.com/",
+    "ok": true,
+    "status": 200
+  },
+  "https://css-tricks.com/snippets/css/a-guide-to-flexbox/": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://css-tricks.com/snippets/css/a-guide-to-flexbox/",
+    "ok": true,
+    "status": 200
+  },
+  "https://css-tricks.com/snippets/css/complete-guide-grid/": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://css-tricks.com/complete-guide-css-grid-layout/",
+    "ok": true,
+    "status": 200
+  },
+  "https://dev.java/learn/": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://dev.java/learn/",
+    "ok": true,
+    "status": 200
+  },
+  "https://dev.java/learn/oop/": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://dev.java/learn/oop/",
+    "ok": true,
+    "status": 200
+  },
+  "https://developer.mozilla.org/en-US/docs/Learn_web_development/Howto/Web_mechanics/How_does_the_Internet_work": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://developer.mozilla.org/en-US/docs/Learn_web_development/Howto/Web_mechanics/How_does_the_Internet_work",
+    "ok": true,
+    "status": 200
+  },
+  "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_box_model/Introduction_to_the_CSS_box_model": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Box_model/Introduction",
+    "ok": true,
+    "status": 200
+  },
+  "https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CORS",
+    "ok": true,
+    "status": 200
+  },
+  "https://developer.mozilla.org/en-US/docs/Web/HTTP/Caching": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Caching",
+    "ok": true,
+    "status": 200
+  },
+  "https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Cookies",
+    "ok": true,
+    "status": 200
+  },
+  "https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Methods",
+    "ok": true,
+    "status": 200
+  },
+  "https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Overview",
+    "ok": true,
+    "status": 200
+  },
+  "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status",
+    "ok": true,
+    "status": 200
+  },
+  "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Closures",
+    "ok": true,
+    "status": 200
+  },
+  "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide",
+    "ok": true,
+    "status": 200
+  },
+  "https://docs.djangoproject.com/en/stable/intro/tutorial01/": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://docs.djangoproject.com/en/6.1/intro/tutorial01/",
+    "ok": true,
+    "status": 200
+  },
+  "https://docs.docker.com/build/building/best-practices/": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://docs.docker.com/build/building/best-practices/",
+    "ok": true,
+    "status": 200
+  },
+  "https://docs.docker.com/get-started/": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://docs.docker.com/get-started/",
+    "ok": true,
+    "status": 200
+  },
+  "https://docs.github.com/en/actions": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://docs.github.com/en/actions",
+    "ok": true,
+    "status": 200
+  },
+  "https://docs.pytest.org/en/stable/getting-started.html": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://docs.pytest.org/en/stable/getting-started.html",
+    "ok": true,
+    "status": 200
+  },
+  "https://docs.python.org/3/library/asyncio.html": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://docs.python.org/3/library/asyncio.html",
+    "ok": true,
+    "status": 200
+  },
+  "https://docs.python.org/3/tutorial/": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://docs.python.org/3/tutorial/",
+    "ok": true,
+    "status": 200
+  },
+  "https://docs.python.org/3/tutorial/classes.html": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://docs.python.org/3/tutorial/classes.html",
+    "ok": true,
+    "status": 200
+  },
+  "https://docs.python.org/3/tutorial/datastructures.html": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://docs.python.org/3/tutorial/datastructures.html",
+    "ok": true,
+    "status": 200
+  },
+  "https://docs.python.org/3/tutorial/errors.html": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://docs.python.org/3/tutorial/errors.html",
+    "ok": true,
+    "status": 200
+  },
+  "https://exceljet.net/functions": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://exceljet.net/functions",
+    "ok": true,
+    "status": 200
+  },
+  "https://expressjs.com/en/guide/using-middleware.html": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://expressjs.com/en/guide/using-middleware/",
+    "ok": true,
+    "status": 200
+  },
+  "https://fastapi.tiangolo.com/tutorial/": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://fastapi.tiangolo.com/tutorial/",
+    "ok": true,
+    "status": 200
+  },
+  "https://flask.palletsprojects.com/en/stable/tutorial/": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://flask.palletsprojects.com/en/stable/tutorial/",
+    "ok": true,
+    "status": 200
+  },
+  "https://git-scm.com/book/en/v2": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://git-scm.com/book/en/v2",
+    "ok": true,
+    "status": 200
+  },
+  "https://github.com/donnemartin/system-design-primer": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://github.com/donnemartin/system-design-primer",
+    "ok": true,
+    "status": 200
+  },
+  "https://google.github.io/eng-practices/review/": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://google.github.io/eng-practices/review/",
+    "ok": true,
+    "status": 200
+  },
+  "https://javascript.info/": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://javascript.info/",
+    "ok": true,
+    "status": 200
+  },
+  "https://javascript.info/async-await": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://javascript.info/async-await",
+    "ok": true,
+    "status": 200
+  },
+  "https://javascript.info/event-loop": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://javascript.info/event-loop",
+    "ok": true,
+    "status": 200
+  },
+  "https://jestjs.io/docs/getting-started": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://jestjs.io/docs/getting-started",
+    "ok": true,
+    "status": 200
+  },
+  "https://learn.microsoft.com/en-us/azure/architecture/best-practices/api-design": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://learn.microsoft.com/en-us/azure/architecture/best-practices/api-design",
+    "ok": true,
+    "status": 200
+  },
+  "https://learn.microsoft.com/en-us/training/powerplatform/power-bi": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://learn.microsoft.com/en-us/training/powerplatform/power-bi",
+    "ok": true,
+    "status": 200
+  },
+  "https://learngitbranching.js.org/": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://learngitbranching.js.org/",
+    "ok": true,
+    "status": 200
+  },
+  "https://leetcode.com/explore/": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://leetcode.com/explore/",
+    "ok": false,
+    "status": 403
+  },
+  "https://linuxjourney.com/": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://labex.io/linuxjourney",
+    "ok": false,
+    "status": 403
+  },
+  "https://martinfowler.com/articles/practical-test-pyramid.html": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://martinfowler.com/articles/practical-test-pyramid.html",
+    "ok": true,
+    "status": 200
+  },
+  "https://mode.com/sql-tutorial/": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://www.thoughtspot.com/sql-tutorial",
+    "ok": true,
+    "status": 200
+  },
+  "https://neetcode.io/roadmap": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://neetcode.io/roadmap",
+    "ok": true,
+    "status": 200
+  },
+  "https://nodejs.org/en/learn/getting-started/introduction-to-nodejs": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://nodejs.org/learn/getting-started/introduction-to-nodejs",
+    "ok": true,
+    "status": 200
+  },
+  "https://numpy.org/doc/stable/user/absolute_beginners.html": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://numpy.org/doc/stable/user/absolute_beginners.html",
+    "ok": true,
+    "status": 200
+  },
+  "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/",
+    "ok": true,
+    "status": 200
+  },
+  "https://openstax.org/details/books/introductory-statistics-2e": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://openstax.org/details/books/introductory-statistics-2e",
+    "ok": true,
+    "status": 200
+  },
+  "https://owasp.org/www-project-top-ten/": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://owasp.org/projects/top-ten",
+    "ok": true,
+    "status": 200
+  },
+  "https://pages.cs.wisc.edu/~remzi/OSTEP/": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://pages.cs.wisc.edu/~remzi/OSTEP/",
+    "ok": true,
+    "status": 200
+  },
+  "https://pandas.pydata.org/docs/user_guide/10min.html": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://pandas.pydata.org/docs/user_guide/10min.html",
+    "ok": true,
+    "status": 200
+  },
+  "https://pandas.pydata.org/docs/user_guide/merging.html": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://pandas.pydata.org/docs/user_guide/merging.html",
+    "ok": true,
+    "status": 200
+  },
+  "https://pandas.pydata.org/docs/user_guide/missing_data.html": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://pandas.pydata.org/docs/user_guide/missing_data.html",
+    "ok": true,
+    "status": 200
+  },
+  "https://react.dev/learn": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://react.dev/learn",
+    "ok": true,
+    "status": 200
+  },
+  "https://react.dev/learn/managing-state": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://react.dev/learn/managing-state",
+    "ok": true,
+    "status": 200
+  },
+  "https://react.dev/learn/synchronizing-with-effects": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://react.dev/learn/synchronizing-with-effects",
+    "ok": true,
+    "status": 200
+  },
+  "https://react.dev/learn/thinking-in-react": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://react.dev/learn/thinking-in-react",
+    "ok": true,
+    "status": 200
+  },
+  "https://react.dev/learn/you-might-not-need-an-effect": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://react.dev/learn/you-might-not-need-an-effect",
+    "ok": true,
+    "status": 200
+  },
+  "https://realpython.com/introduction-to-python-generators/": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://realpython.com/introduction-to-python-generators/",
+    "ok": true,
+    "status": 200
+  },
+  "https://refactoring.guru/design-patterns": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://refactoring.guru/design-patterns",
+    "ok": true,
+    "status": 200
+  },
+  "https://refactoring.guru/design-patterns/factory-method": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://refactoring.guru/design-patterns/factory-method",
+    "ok": true,
+    "status": 200
+  },
+  "https://restfulapi.net/": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://restfulapi.net/",
+    "ok": true,
+    "status": 200
+  },
+  "https://scrumguides.org/scrum-guide.html": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://scrumguides.org/scrum-guide.html",
+    "ok": true,
+    "status": 200
+  },
+  "https://seaborn.pydata.org/tutorial.html": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://seaborn.pydata.org/tutorial.html",
+    "ok": true,
+    "status": 200
+  },
+  "https://seeing-theory.brown.edu/": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://seeing-theory.brown.edu/",
+    "ok": true,
+    "status": 200
+  },
+  "https://sqlbolt.com/": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://sqlbolt.com/",
+    "ok": true,
+    "status": 200
+  },
+  "https://support.microsoft.com/en-us/office/create-a-pivottable-to-analyze-worksheet-data-a9a84538-bfe9-40a9-a8e9-f99134456576": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://support.microsoft.com/en-us/excel/get-started/create-a-pivottable-to-analyze-worksheet-data",
+    "ok": true,
+    "status": 200
+  },
+  "https://support.microsoft.com/en-us/office/sumifs-function-c9e748f5-7ea7-455d-9406-611cebce642b": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://support.microsoft.com/en-us/excel/functions/sumifs-function",
+    "ok": true,
+    "status": 200
+  },
+  "https://support.microsoft.com/en-us/office/xlookup-function-b7fd680e-6d10-43e6-84f9-88eae8bf5929": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://support.microsoft.com/en-us/excel/functions/xlookup-function",
+    "ok": true,
+    "status": 200
+  },
+  "https://tanstack.com/query/latest/docs/framework/react/overview": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://tanstack.com/query/latest/docs/framework/react/overview",
+    "ok": true,
+    "status": 200
+  },
+  "https://ubuntu.com/tutorials/command-line-for-beginners": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://ubuntu.com/tutorials/command-line-for-beginners",
+    "ok": true,
+    "status": 200
+  },
+  "https://use-the-index-luke.com/": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://use-the-index-luke.com/",
+    "ok": true,
+    "status": 200
+  },
+  "https://visualgo.net/en": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://visualgo.net/en",
+    "ok": true,
+    "status": 200
+  },
+  "https://web.dev/articles/vitals": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://web.dev/articles/vitals",
+    "ok": true,
+    "status": 200
+  },
+  "https://web.dev/learn/accessibility": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://web.dev/learn/accessibility",
+    "ok": true,
+    "status": 200
+  },
+  "https://web.dev/learn/css": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://web.dev/learn/css",
+    "ok": true,
+    "status": 200
+  },
+  "https://web.dev/learn/design": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://web.dev/learn/design",
+    "ok": true,
+    "status": 200
+  },
+  "https://web.dev/learn/html": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://web.dev/learn/html",
+    "ok": true,
+    "status": 200
+  },
+  "https://web.dev/learn/performance": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://web.dev/learn/performance",
+    "ok": true,
+    "status": 200
+  },
+  "https://www.bigocheatsheet.com/": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://www.bigocheatsheet.com/",
+    "ok": true,
+    "status": 200
+  },
+  "https://www.cloudflare.com/learning/ddos/glossary/tcp-ip/": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://www.cloudflare.com/learning/ddos/glossary/tcp-ip/",
+    "ok": true,
+    "status": 200
+  },
+  "https://www.cloudflare.com/learning/dns/what-is-dns/": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://www.cloudflare.com/learning/dns/what-is-dns/",
+    "ok": true,
+    "status": 200
+  },
+  "https://www.data-to-viz.com/": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://www.data-to-viz.com/",
+    "ok": true,
+    "status": 200
+  },
+  "https://www.kaggle.com/learn/data-cleaning": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://www.kaggle.com/learn/data-cleaning",
+    "ok": true,
+    "status": 200
+  },
+  "https://www.kaggle.com/learn/data-visualization": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://www.kaggle.com/learn/data-visualization",
+    "ok": true,
+    "status": 200
+  },
+  "https://www.kaggle.com/learn/pandas": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://www.kaggle.com/learn/pandas",
+    "ok": true,
+    "status": 200
+  },
+  "https://www.khanacademy.org/math/statistics-probability": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://www.khanacademy.org/math/statistics-probability",
+    "ok": true,
+    "status": 200
+  },
+  "https://www.mongodb.com/docs/manual/introduction/": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://www.mongodb.com/docs/manual/",
+    "ok": true,
+    "status": 200
+  },
+  "https://www.postgresql.org/docs/current/ddl-constraints.html": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://www.postgresql.org/docs/current/ddl-constraints.html",
+    "ok": true,
+    "status": 200
+  },
+  "https://www.postgresql.org/docs/current/indexes.html": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://www.postgresql.org/docs/current/indexes.html",
+    "ok": true,
+    "status": 200
+  },
+  "https://www.postgresql.org/docs/current/tutorial-sql.html": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://www.postgresql.org/docs/current/tutorial-sql.html",
+    "ok": true,
+    "status": 200
+  },
+  "https://www.postgresql.org/docs/current/tutorial-transactions.html": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://www.postgresql.org/docs/current/tutorial-transactions.html",
+    "ok": true,
+    "status": 200
+  },
+  "https://www.postgresql.org/docs/current/tutorial-window.html": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://www.postgresql.org/docs/current/tutorial-window.html",
+    "ok": true,
+    "status": 200
+  },
+  "https://www.programiz.com/dsa": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://www.programiz.com/dsa",
+    "ok": true,
+    "status": 200
+  },
+  "https://www.tableau.com/learn/training": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://www.tableau.com/learn/training",
+    "ok": true,
+    "status": 200
+  },
+  "https://www.typescriptlang.org/docs/handbook/2/generics.html": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://www.typescriptlang.org/docs/handbook/2/generics.html",
+    "ok": true,
+    "status": 200
+  },
+  "https://www.typescriptlang.org/docs/handbook/2/narrowing.html": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://www.typescriptlang.org/docs/handbook/2/narrowing.html",
+    "ok": true,
+    "status": 200
+  },
+  "https://www.typescriptlang.org/docs/handbook/intro.html": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://www.typescriptlang.org/docs/handbook/intro.html",
+    "ok": true,
+    "status": 200
+  },
+  "https://www.w3.org/WAI/fundamentals/accessibility-intro/": {
+    "checked_on": "2026-10-20",
+    "final_url": "https://www.w3.org/WAI/fundamentals/accessibility-intro/",
+    "ok": true,
+    "status": 200
+  }
+}

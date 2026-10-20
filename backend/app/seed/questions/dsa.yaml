@@ -1,0 +1,126 @@
+defaults: {skill: dsa, purpose: any, source_type: curated_general, authoring: ai_assisted, bank_version: v1}
+questions:
+  - slug: ds-e1
+    topic: Stacks
+    type: mcq_single
+    difficulty: easy
+    prompt: Which data structure follows Last-In, First-Out (LIFO) order?
+    options: [{id: a, text: Queue}, {id: b, text: Stack}, {id: c, text: Heap}, {id: d, text: Linked list}]
+    answer: b
+    explanation: A stack removes the most recently added item first; a queue is FIFO.
+  - slug: ds-e2
+    topic: Arrays vs linked lists
+    type: mcq_single
+    difficulty: easy
+    prompt: What is the time complexity of accessing the i-th element of an array by index?
+    options: [{id: a, text: "O(1)"}, {id: b, text: "O(log n)"}, {id: c, text: "O(n)"}, {id: d, text: "O(n log n)"}]
+    answer: a
+    explanation: Arrays store elements contiguously, so the address of index i is computed directly. A linked list needs O(n) to reach the i-th node.
+  - slug: ds-e3
+    topic: Hash maps
+    type: mcq_single
+    difficulty: easy
+    prompt: What is the average-case time to look up a key in a well-implemented hash map?
+    options: [{id: a, text: "O(1)"}, {id: b, text: "O(log n)"}, {id: c, text: "O(n)"}, {id: d, text: "O(n²)"}]
+    answer: a
+    explanation: Hashing jumps straight to a bucket; collisions make the worst case O(n), but the average is O(1).
+  - slug: ds-e4
+    topic: Queues
+    type: code_output
+    difficulty: easy
+    prompt: |
+      Starting with an empty queue: enqueue(1), enqueue(2), dequeue(), enqueue(3), dequeue(). What is left in the queue?
+    options: [{id: a, text: "[1]"}, {id: b, text: "[2]"}, {id: c, text: "[3]"}, {id: d, text: "[2, 3]"}]
+    answer: c
+    explanation: The first dequeue removes 1, the second removes 2, leaving 3.
+  - slug: ds-m1
+    topic: Binary search trees
+    type: mcq_single
+    difficulty: medium
+    prompt: Which traversal of a binary search tree visits the keys in sorted (ascending) order?
+    options: [{id: a, text: Pre-order}, {id: b, text: In-order}, {id: c, text: Post-order}, {id: d, text: Level-order}]
+    answer: b
+    explanation: In-order visits left subtree, node, then right subtree — ascending order in a BST.
+  - slug: ds-m2
+    topic: Heaps
+    type: mcq_single
+    difficulty: medium
+    prompt: You need to repeatedly get the smallest element from a changing collection. Which structure gives O(log n) insert and O(log n) remove-min?
+    options: [{id: a, text: Unsorted array}, {id: b, text: Min-heap (priority queue)}, {id: c, text: Stack}, {id: d, text: Hash set}]
+    answer: b
+    explanation: A binary min-heap keeps the minimum at the root with logarithmic insert and extract.
+  - slug: ds-m-sa1
+    topic: Hash maps
+    type: short_answer
+    difficulty: medium
+    prompt: Explain how a hash map works internally and what happens when two keys collide.
+    reference_answer: A hash map computes a hash of the key and maps it to a bucket index in an underlying array, giving average O(1) insert and lookup. Two different keys can land in the same bucket — a collision — which is handled by chaining (each bucket holds a list of entries) or open addressing (probing for another slot). When the load factor gets too high the table resizes and rehashes to keep operations fast.
+    key_points:
+      - {id: kp1, text: "Hash function maps a key to a bucket/index in an array", weight: 0.35}
+      - {id: kp2, text: "Collisions handled by chaining or open addressing/probing", weight: 0.4}
+      - {id: kp3, text: "Resizing/rehashing based on load factor, or average O(1) vs worst O(n)", weight: 0.25}
+    explanation: Hashing plus a collision strategy is what makes lookups fast on average.
+  - slug: ds-m-sa2
+    topic: Choosing structures
+    type: approach
+    difficulty: medium
+    prompt: Describe how you would detect whether a linked list contains a cycle, and state the time and space complexity of your approach.
+    reference_answer: Use Floyd's tortoise and hare — two pointers, one moving one step and the other two steps at a time. If there is a cycle the fast pointer eventually meets the slow one; if the fast pointer reaches null there is no cycle. It runs in O(n) time and O(1) extra space. A simpler alternative stores visited nodes in a hash set, which is O(n) time but O(n) space.
+    key_points:
+      - {id: kp1, text: "Two pointers moving at different speeds (Floyd's cycle detection)", weight: 0.45}
+      - {id: kp2, text: "Meeting means a cycle; fast pointer reaching null means none", weight: 0.25}
+      - {id: kp3, text: "States O(n) time and O(1) space (or compares with the hash-set approach)", weight: 0.3}
+    explanation: The pointer approach avoids the extra memory a visited set would need.
+  - slug: ds-h1
+    topic: Graphs
+    type: mcq_single
+    difficulty: hard
+    prompt: Which traversal finds the shortest path (fewest edges) between two nodes in an unweighted graph?
+    options: [{id: a, text: Depth-first search}, {id: b, text: Breadth-first search}, {id: c, text: In-order traversal}, {id: d, text: Binary search}]
+    answer: b
+    explanation: BFS explores nodes in order of distance from the start, so the first time it reaches the target is via a shortest path.
+  - slug: ds-h2
+    topic: Tries
+    type: mcq_single
+    difficulty: hard
+    prompt: An autocomplete feature must return all words starting with a typed prefix from a large dictionary. Which structure suits this best?
+    options: [{id: a, text: Trie (prefix tree)}, {id: b, text: Stack}, {id: c, text: Unsorted array}, {id: d, text: Min-heap}]
+    answer: a
+    explanation: A trie walks the prefix in O(length of prefix) and then enumerates the subtree of matching words.
+  - slug: ds-h3
+    topic: LRU cache
+    type: mcq_single
+    difficulty: hard
+    prompt: An LRU cache needs O(1) get, O(1) put and O(1) eviction of the least recently used item. Which combination achieves this?
+    options:
+      - {id: a, text: "A hash map plus a doubly linked list"}
+      - {id: b, text: "A sorted array"}
+      - {id: c, text: "A binary search tree only"}
+      - {id: d, text: "A single queue"}
+    answer: a
+    explanation: The hash map finds nodes in O(1); the doubly linked list moves accessed nodes to the front and removes the tail in O(1).
+  - slug: ds-int1
+    topic: Data structure choice
+    type: short_answer
+    difficulty: medium
+    purpose: interview
+    prompt: Compare arrays and linked lists. When would you choose each?
+    reference_answer: Arrays store elements contiguously, giving O(1) index access and good cache locality, but inserting or deleting in the middle costs O(n) shifts and fixed-size arrays need resizing. Linked lists store nodes with pointers, so insertion or deletion at a known node is O(1), but access by index is O(n), they use extra memory for pointers and have poor locality. Choose arrays (or dynamic arrays) for most read-heavy work and random access; linked lists when you frequently insert or remove at known positions, as in LRU caches or queues.
+    key_points:
+      - {id: kp1, text: "Arrays: O(1) index access, contiguous memory/cache-friendly", weight: 0.3}
+      - {id: kp2, text: "Arrays: middle insert/delete is O(n)", weight: 0.2}
+      - {id: kp3, text: "Linked lists: O(1) insert/delete at a known node but O(n) access, extra pointer memory", weight: 0.3}
+      - {id: kp4, text: "Sensible guidance or example for each choice", weight: 0.2}
+    explanation: The trade-off is access speed versus cheap structural changes.
+  - slug: ds-int2
+    topic: Problem solving
+    type: approach
+    difficulty: medium
+    purpose: interview
+    prompt: Given an array of integers and a target, how would you find two numbers that add up to the target? Explain your approach and its complexity.
+    reference_answer: The brute-force approach checks every pair in O(n²). Better, iterate once with a hash map from value to index; for each number check whether target minus the number is already in the map — if so return the pair, otherwise store the number. This is O(n) time and O(n) space. If the array is sorted, two pointers from both ends give O(n) time and O(1) space.
+    key_points:
+      - {id: kp1, text: "Mentions the brute-force O(n²) baseline", weight: 0.2}
+      - {id: kp2, text: "Hash map storing seen values and checking the complement", weight: 0.45}
+      - {id: kp3, text: "States O(n) time / O(n) space, or the two-pointer approach for sorted input", weight: 0.35}
+    explanation: Trading memory for time with a hash map is the key idea.

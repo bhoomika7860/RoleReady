@@ -1,0 +1,152 @@
+defaults: {skill: sql, purpose: any, source_type: curated_general, authoring: ai_assisted, bank_version: v1}
+questions:
+  - slug: sql-e1
+    topic: Filtering
+    type: mcq_single
+    difficulty: easy
+    prompt: Which clause filters rows before they are grouped?
+    options: [{id: a, text: HAVING}, {id: b, text: WHERE}, {id: c, text: ORDER BY}, {id: d, text: LIMIT}]
+    answer: b
+    explanation: WHERE filters individual rows before GROUP BY; HAVING filters groups after aggregation.
+  - slug: sql-e2
+    topic: Joins
+    type: mcq_single
+    difficulty: easy
+    prompt: Which JOIN returns all rows from the left table, with NULLs where there is no match in the right table?
+    options: [{id: a, text: INNER JOIN}, {id: b, text: LEFT JOIN}, {id: c, text: CROSS JOIN}, {id: d, text: RIGHT JOIN}]
+    answer: b
+    explanation: LEFT (OUTER) JOIN keeps every row of the left table; unmatched right-side columns become NULL.
+  - slug: sql-e3
+    topic: Aggregation
+    type: mcq_single
+    difficulty: easy
+    prompt: "In a table `orders(id, amount)` with 10 rows where 2 rows have `amount` NULL, what does `SELECT COUNT(amount) FROM orders` return?"
+    options: [{id: a, text: "10"}, {id: b, text: "8"}, {id: c, text: "2"}, {id: d, text: "NULL"}]
+    answer: b
+    explanation: COUNT(column) ignores NULLs; COUNT(*) counts all rows (10).
+  - slug: sql-e4
+    topic: Sorting
+    type: mcq_single
+    difficulty: easy
+    prompt: How do you return the 5 highest salaries from `employees(name, salary)` in PostgreSQL or MySQL?
+    options:
+      - {id: a, text: "SELECT salary FROM employees ORDER BY salary DESC LIMIT 5"}
+      - {id: b, text: "SELECT salary FROM employees LIMIT 5 ORDER BY salary"}
+      - {id: c, text: "SELECT TOP salary FROM employees WHERE 5"}
+      - {id: d, text: "SELECT MAX(salary, 5) FROM employees"}
+    answer: a
+    explanation: Sort descending, then LIMIT the result; LIMIT must come after ORDER BY.
+  - slug: sql-m1
+    topic: GROUP BY
+    type: code_output
+    difficulty: medium
+    prompt: |
+      Table `sales(region, amount)` has rows: (N, 100), (N, 50), (S, 70), (S, 30), (E, 20).
+      How many rows does this return?
+      ```sql
+      SELECT region, SUM(amount) AS total
+      FROM sales
+      GROUP BY region
+      HAVING SUM(amount) > 60;
+      ```
+    options: [{id: a, text: "1"}, {id: b, text: "2"}, {id: c, text: "3"}, {id: d, text: "5"}]
+    answer: b
+    explanation: Totals are N=150, S=100, E=20. HAVING keeps groups above 60, so N and S remain.
+  - slug: sql-m2
+    topic: Joins
+    type: code_output
+    difficulty: medium
+    prompt: |
+      `students` has 3 rows (ids 1, 2, 3). `enrollments(student_id, course)` has rows (1, 'DB'), (1, 'OS'), (2, 'DB').
+      How many rows does this return?
+      ```sql
+      SELECT s.id, e.course
+      FROM students s
+      LEFT JOIN enrollments e ON e.student_id = s.id;
+      ```
+    options: [{id: a, text: "2"}, {id: b, text: "3"}, {id: c, text: "4"}, {id: d, text: "6"}]
+    answer: c
+    explanation: Student 1 matches two rows, student 2 matches one, and student 3 has no match but is kept with a NULL course — 4 rows.
+  - slug: sql-m-sa1
+    topic: Joins
+    type: short_answer
+    difficulty: medium
+    prompt: Explain the difference between INNER JOIN and LEFT JOIN, with a small example of when the results differ.
+    reference_answer: INNER JOIN returns only rows that have a match in both tables. LEFT JOIN returns every row from the left table and fills the right table's columns with NULL when there is no match. For customers and orders, an INNER JOIN drops customers with no orders while a LEFT JOIN keeps them with NULL order columns, which is how you find customers who never ordered.
+    key_points:
+      - {id: kp1, text: "INNER JOIN keeps only matching rows from both tables", weight: 0.35}
+      - {id: kp2, text: "LEFT JOIN keeps all left-table rows, with NULLs for non-matching right-side columns", weight: 0.4}
+      - {id: kp3, text: "A concrete example where the results differ (e.g. customers without orders)", weight: 0.25}
+    explanation: The difference only shows when some left rows have no partner in the right table.
+  - slug: sql-m-sa2
+    topic: Window functions
+    type: approach
+    difficulty: medium
+    prompt: "Describe how you would find the second-highest salary in each department from `employees(name, dept, salary)`. Explain the approach, not just the syntax."
+    reference_answer: Use a window function partitioned by department and ordered by salary descending, such as DENSE_RANK() OVER (PARTITION BY dept ORDER BY salary DESC), in a subquery or CTE, then filter where the rank equals 2. DENSE_RANK handles ties so two people sharing the top salary don't make the second distinct salary disappear. Departments with only one distinct salary return nothing.
+    key_points:
+      - {id: kp1, text: "Rank salaries within each department using PARTITION BY dept", weight: 0.35}
+      - {id: kp2, text: "Order by salary descending and filter rank = 2 in an outer query/CTE", weight: 0.35}
+      - {id: kp3, text: "Mentions handling ties (DENSE_RANK vs ROW_NUMBER) or departments with one salary", weight: 0.3}
+    explanation: Window functions compute per-group rankings without collapsing rows like GROUP BY does.
+  - slug: sql-h1
+    topic: NULL semantics
+    type: code_output
+    difficulty: hard
+    prompt: |
+      Table `t(x)` has rows 1, 2 and NULL. What does this return?
+      ```sql
+      SELECT COUNT(*) FROM t WHERE x NOT IN (1, NULL);
+      ```
+    options: [{id: a, text: "0"}, {id: b, text: "1"}, {id: c, text: "2"}, {id: d, text: "3"}]
+    answer: a
+    explanation: "`x NOT IN (1, NULL)` means `x <> 1 AND x <> NULL`. Comparing with NULL is UNKNOWN, so no row passes the filter. This is why NOT IN with NULLs is a classic bug; NOT EXISTS is safer."
+  - slug: sql-h2
+    topic: Indexes and query plans
+    type: mcq_single
+    difficulty: hard
+    prompt: "A query `SELECT * FROM users WHERE LOWER(email) = 'a@b.com'` is slow even though there is an index on `email`. What is the most likely fix?"
+    options:
+      - {id: a, text: "Add LIMIT 1 to the query"}
+      - {id: b, text: "Create an expression index on LOWER(email), or store emails normalised"}
+      - {id: c, text: "Use SELECT DISTINCT"}
+      - {id: d, text: "Increase the database connection pool"}
+    answer: b
+    explanation: Applying a function to the column prevents use of a plain index on email. An index on the same expression (or storing normalised values) lets the planner use an index scan.
+  - slug: sql-h3
+    topic: Subqueries
+    type: mcq_single
+    difficulty: hard
+    prompt: Which query returns customers who have never placed an order and behaves correctly even if orders.customer_id contains NULLs?
+    options:
+      - {id: a, text: "SELECT * FROM customers WHERE id NOT IN (SELECT customer_id FROM orders)"}
+      - {id: b, text: "SELECT * FROM customers c WHERE NOT EXISTS (SELECT 1 FROM orders o WHERE o.customer_id = c.id)"}
+      - {id: c, text: "SELECT * FROM customers c JOIN orders o ON o.customer_id <> c.id"}
+      - {id: d, text: "SELECT * FROM customers WHERE id <> ALL (SELECT customer_id FROM orders)"}
+    answer: b
+    explanation: NOT EXISTS is unaffected by NULLs in the subquery. NOT IN and <> ALL return no rows once a NULL appears, and the <> join produces a near cross-product.
+  - slug: sql-int1
+    topic: Query optimisation
+    type: short_answer
+    difficulty: medium
+    purpose: interview
+    prompt: A report query that joins two large tables has become slow. How would you investigate and speed it up?
+    reference_answer: Reproduce it and read the execution plan with EXPLAIN (ANALYZE) to see where time goes — sequential scans, bad row estimates, expensive sorts or joins. Check that join and filter columns are indexed and that predicates are sargable (no functions on indexed columns). Select only needed columns, filter early, and check for missing statistics. Consider composite or covering indexes, rewriting subqueries, pagination, or pre-aggregating with a materialised view, and measure again after each change.
+    key_points:
+      - {id: kp1, text: "Use EXPLAIN / EXPLAIN ANALYZE to find the bottleneck before changing things", weight: 0.3}
+      - {id: kp2, text: "Indexes on join/filter columns and avoiding functions on indexed columns", weight: 0.3}
+      - {id: kp3, text: "Reduce work: select needed columns, filter early, paginate, or pre-aggregate", weight: 0.2}
+      - {id: kp4, text: "Measure again after each change", weight: 0.2}
+    explanation: Measurement first, then targeted indexing and query changes.
+  - slug: sql-int2
+    topic: Transactions
+    type: short_answer
+    difficulty: medium
+    purpose: interview
+    prompt: Explain what a database transaction is and why a money transfer between two accounts should use one.
+    reference_answer: A transaction groups several statements into one unit of work that either commits completely or rolls back completely. A transfer debits one account and credits another; without a transaction a crash or error between the two updates could lose or create money. Transactions provide ACID guarantees — atomicity, consistency, isolation from concurrent transfers, and durability once committed. Row locks or an appropriate isolation level prevent two concurrent transfers from overdrawing.
+    key_points:
+      - {id: kp1, text: "All statements succeed together or are rolled back together (atomicity)", weight: 0.4}
+      - {id: kp2, text: "Explains the failure between debit and credit that a transaction prevents", weight: 0.3}
+      - {id: kp3, text: "Mentions isolation / concurrency (locks or isolation levels) or ACID", weight: 0.3}
+    explanation: Transactions keep multi-step changes consistent under failures and concurrency.

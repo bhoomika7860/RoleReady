@@ -1,0 +1,113 @@
+defaults: {skill: html-css, purpose: any, source_type: curated_general, authoring: ai_assisted, bank_version: v1}
+questions:
+  - slug: hc-e1
+    topic: Semantic HTML
+    type: mcq_single
+    difficulty: easy
+    prompt: Which element is the most appropriate wrapper for a site's main navigation links?
+    options: [{id: a, text: "<div class=\"nav\">"}, {id: b, text: "<nav>"}, {id: c, text: "<section>"}, {id: d, text: "<span>"}]
+    answer: b
+    explanation: nav is the semantic element for major navigation blocks and is exposed as a landmark to assistive technology.
+  - slug: hc-e2
+    topic: Box model
+    type: mcq_single
+    difficulty: easy
+    prompt: "With `box-sizing: border-box`, an element has `width: 200px; padding: 20px; border: 5px solid`. What is its rendered width?"
+    options: [{id: a, text: "200px"}, {id: b, text: "250px"}, {id: c, text: "240px"}, {id: d, text: "210px"}]
+    answer: a
+    explanation: border-box includes padding and border inside the declared width, so it stays 200px.
+  - slug: hc-e3
+    topic: Selectors
+    type: mcq_single
+    difficulty: easy
+    prompt: Which selector matches only direct children `<li>` of `<ul class="menu">`?
+    options: [{id: a, text: ".menu li"}, {id: b, text: ".menu > li"}, {id: c, text: ".menu + li"}, {id: d, text: ".menu ~ li"}]
+    answer: b
+    explanation: The child combinator > matches direct children only; a space matches any descendant.
+  - slug: hc-e4
+    topic: Forms
+    type: mcq_single
+    difficulty: easy
+    prompt: How should a text input be associated with its visible label for accessibility?
+    options:
+      - {id: a, text: "Put the label text in the input's placeholder only"}
+      - {id: b, text: "<label for=\"email\">Email</label> with <input id=\"email\">"}
+      - {id: c, text: "Use a <span> next to the input"}
+      - {id: d, text: "Use the title attribute only"}
+    answer: b
+    explanation: A label linked by for/id is announced by screen readers and enlarges the click target. Placeholders disappear and are not labels.
+  - slug: hc-m1
+    topic: Specificity
+    type: mcq_single
+    difficulty: medium
+    prompt: "Which rule wins for the colour of `<p id=\"intro\" class=\"lead\">`? `p { color: black }`, `.lead { color: blue }`, `#intro { color: green }`"
+    options: [{id: a, text: black}, {id: b, text: blue}, {id: c, text: green}, {id: d, text: "Whichever rule appears last"}]
+    answer: c
+    explanation: ID selectors have higher specificity than class selectors, which beat type selectors; source order only breaks ties.
+  - slug: hc-m2
+    topic: Flexbox
+    type: mcq_single
+    difficulty: medium
+    prompt: "In a flex container with the default `flex-direction: row`, which property centres items vertically?"
+    options: [{id: a, text: "justify-content: center"}, {id: b, text: "align-items: center"}, {id: c, text: "text-align: center"}, {id: d, text: "vertical-align: middle"}]
+    answer: b
+    explanation: align-items works on the cross axis (vertical in a row); justify-content works on the main axis.
+  - slug: hc-m-sa1
+    topic: Positioning
+    type: short_answer
+    difficulty: medium
+    prompt: "Explain the difference between `position: relative`, `absolute` and `fixed` in CSS."
+    reference_answer: relative keeps the element in normal flow and offsets it from its original position, and it creates a containing block for absolutely positioned children. absolute removes the element from flow and positions it relative to its nearest positioned ancestor. fixed also removes it from flow but positions it relative to the viewport, so it stays in place when scrolling.
+    key_points:
+      - {id: kp1, text: "relative stays in normal flow and is offset from its own position", weight: 0.3}
+      - {id: kp2, text: "absolute is removed from flow and positioned relative to the nearest positioned ancestor", weight: 0.4}
+      - {id: kp3, text: "fixed is positioned relative to the viewport and doesn't move on scroll", weight: 0.3}
+    explanation: The key ideas are document flow and the containing block each mode uses.
+  - slug: hc-m-sa2
+    topic: Semantic HTML
+    type: short_answer
+    difficulty: medium
+    prompt: Why does semantic HTML matter? Give two concrete benefits.
+    reference_answer: Semantic elements like header, nav, main, article, button and label describe meaning rather than appearance. Screen readers use them to announce structure and landmarks, so pages are more accessible; real buttons and links are keyboard-operable by default. Search engines understand content better, and code is easier for other developers to read and maintain.
+    key_points:
+      - {id: kp1, text: "Elements describe meaning/structure, not just presentation", weight: 0.3}
+      - {id: kp2, text: "Accessibility: screen readers, landmarks, keyboard behaviour", weight: 0.4}
+      - {id: kp3, text: "Another benefit: SEO or maintainability/readability", weight: 0.3}
+    explanation: Semantics give meaning that browsers, assistive technology and people can use.
+  - slug: hc-h1
+    topic: Grid
+    type: mcq_single
+    difficulty: hard
+    prompt: "Which CSS creates a responsive grid that fits as many 200px-minimum columns as possible and stretches them to fill the row?"
+    options:
+      - {id: a, text: "grid-template-columns: repeat(auto-fill, minmax(200px, 1fr))"}
+      - {id: b, text: "grid-template-columns: 200px 200px 200px"}
+      - {id: c, text: "grid-template-rows: repeat(3, 1fr)"}
+      - {id: d, text: "display: flex; flex-wrap: nowrap"}
+    answer: a
+    explanation: repeat with auto-fill (or auto-fit) and minmax(200px, 1fr) creates as many columns as fit, each at least 200px wide.
+  - slug: hc-h2
+    topic: Stacking context
+    type: mcq_single
+    difficulty: hard
+    prompt: "A modal has `z-index: 9999` but still appears behind a header with `z-index: 10`. What is the most likely cause?"
+    options:
+      - {id: a, text: "z-index only works on inline elements"}
+      - {id: b, text: "The modal is inside a parent that creates its own stacking context with a lower z-index"}
+      - {id: c, text: "The header uses a darker colour"}
+      - {id: d, text: "The modal's z-index is too large to be valid"}
+    answer: b
+    explanation: z-index compares elements only within the same stacking context; a parent with transform, opacity < 1 or its own z-index can trap the modal.
+  - slug: hc-int1
+    topic: Layout
+    type: short_answer
+    difficulty: medium
+    purpose: interview
+    prompt: How would you build a page layout that works on both a phone and a large desktop screen? Talk through your CSS approach.
+    reference_answer: Start mobile-first with a single-column layout and fluid widths, then add media queries (or container queries) at breakpoints to introduce columns. Use flexbox for one-dimensional rows of items and CSS grid for the page layout, relative units like rem and %, max-width for readable text, responsive images, and the viewport meta tag. Test at real device widths and ensure touch targets are large enough and nothing scrolls horizontally.
+    key_points:
+      - {id: kp1, text: "Mobile-first with media queries / breakpoints", weight: 0.3}
+      - {id: kp2, text: "Flexbox and/or Grid for layout with fluid/relative units", weight: 0.3}
+      - {id: kp3, text: "Viewport meta tag, responsive images or max-width for readability", weight: 0.2}
+      - {id: kp4, text: "Testing on real widths; touch targets; no horizontal scroll", weight: 0.2}
+    explanation: Responsive layout combines fluid units, modern layout tools and breakpoints.

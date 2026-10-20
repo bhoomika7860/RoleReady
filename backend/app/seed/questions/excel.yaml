@@ -1,0 +1,109 @@
+defaults: {skill: excel, purpose: any, source_type: curated_general, authoring: ai_assisted, bank_version: v1}
+questions:
+  - slug: xl-e1
+    topic: References
+    type: mcq_single
+    difficulty: easy
+    prompt: "In Excel, which reference stays fixed on both column and row when the formula is copied?"
+    options: [{id: a, text: "A1"}, {id: b, text: "$A1"}, {id: c, text: "A$1"}, {id: d, text: "$A$1"}]
+    answer: d
+    explanation: The $ before both the column and the row makes the reference absolute.
+  - slug: xl-e2
+    topic: Functions
+    type: mcq_single
+    difficulty: easy
+    prompt: Which function counts the cells in B2:B100 that are equal to "Delhi"?
+    options: [{id: a, text: "=COUNT(B2:B100,\"Delhi\")"}, {id: b, text: "=COUNTIF(B2:B100,\"Delhi\")"}, {id: c, text: "=SUM(B2:B100=\"Delhi\")"}, {id: d, text: "=LOOKUP(\"Delhi\",B2:B100)"}]
+    answer: b
+    explanation: COUNTIF counts cells that meet a single condition; COUNT only counts numeric cells.
+  - slug: xl-e3
+    topic: Functions
+    type: code_output
+    difficulty: easy
+    prompt: "A1:A4 contain 10, 20, (blank), 30. What does =AVERAGE(A1:A4) return?"
+    options: [{id: a, text: "15"}, {id: b, text: "20"}, {id: c, text: "60"}, {id: d, text: "An error"}]
+    answer: b
+    explanation: AVERAGE ignores blank cells, so it averages 10, 20 and 30 to 20.
+  - slug: xl-e4
+    topic: Pivot tables
+    type: mcq_single
+    difficulty: easy
+    prompt: You have a table of sales with columns Region, Month and Amount. What's the quickest way to see total Amount per Region per Month?
+    options: [{id: a, text: "A pivot table with Region as rows, Month as columns and Sum of Amount as values"}, {id: b, text: "Sort by Amount"}, {id: c, text: "Use conditional formatting"}, {id: d, text: "Freeze the top row"}]
+    answer: a
+    explanation: Pivot tables summarise and cross-tabulate data without writing formulas.
+  - slug: xl-m1
+    topic: Lookups
+    type: mcq_single
+    difficulty: medium
+    prompt: "Why does =VLOOKUP(\"E102\", A2:D50, 3) sometimes return a wrong employee instead of an error when E102 doesn't exist?"
+    options:
+      - {id: a, text: "VLOOKUP is case-sensitive"}
+      - {id: b, text: "Omitting the 4th argument defaults to approximate match; use FALSE (or 0) for an exact match"}
+      - {id: c, text: "Column 3 is out of range"}
+      - {id: d, text: "VLOOKUP can't search text"}
+    answer: b
+    explanation: The range_lookup argument defaults to TRUE (approximate), which returns the nearest smaller value on sorted data. XLOOKUP defaults to exact match.
+  - slug: xl-m2
+    topic: Conditional logic
+    type: code_output
+    difficulty: medium
+    prompt: "B2 contains 72. What does =IF(B2>=75,\"Strong\",IF(B2>=60,\"Approaching\",\"Developing\")) return?"
+    options: [{id: a, text: "Strong"}, {id: b, text: "Approaching"}, {id: c, text: "Developing"}, {id: d, text: "FALSE"}]
+    answer: b
+    explanation: 72 fails the first test (≥ 75) and passes the second (≥ 60).
+  - slug: xl-m-sa1
+    topic: Lookups
+    type: short_answer
+    difficulty: medium
+    prompt: Compare VLOOKUP with INDEX/MATCH (or XLOOKUP). Why do many analysts prefer the latter?
+    reference_answer: VLOOKUP searches the first column of a range and returns a value from a column number to the right; it can't look left, breaks when columns are inserted because the column index is hard-coded, and defaults to approximate match. INDEX/MATCH separates the lookup column from the return column, can look in any direction, is robust to inserted columns and can be faster on large sheets. XLOOKUP combines this with exact match by default and built-in not-found handling.
+    key_points:
+      - {id: kp1, text: "VLOOKUP can only return columns to the right of the lookup column", weight: 0.3}
+      - {id: kp2, text: "Hard-coded column index breaks when columns change; approximate-match default", weight: 0.35}
+      - {id: kp3, text: "INDEX/MATCH or XLOOKUP is flexible (any direction, robust) with exact match", weight: 0.35}
+    explanation: Flexible lookups survive sheet changes.
+  - slug: xl-m-sa2
+    topic: Data checks
+    type: approach
+    difficulty: medium
+    prompt: You receive a 20,000-row sales spreadsheet from another team. Describe how you would check it is reliable before building a report on it.
+    reference_answer: First check structure — headers, data types and that numbers aren't stored as text. Look for blanks and errors with filters or COUNTBLANK, find duplicates with Remove Duplicates or COUNTIF on key columns, and check ranges and outliers with MIN/MAX or a quick pivot. Reconcile totals with a known figure such as last month's reported revenue, check date ranges and category spellings, and document any fixes. Ask the source team about anything unexplained.
+    key_points:
+      - {id: kp1, text: "Check types/formats (numbers as text, dates) and blanks/errors", weight: 0.3}
+      - {id: kp2, text: "Find duplicates and outliers (COUNTIF, pivot, MIN/MAX)", weight: 0.3}
+      - {id: kp3, text: "Reconcile totals against a trusted source; document and ask questions", weight: 0.4}
+    explanation: Validating inputs prevents confident but wrong reports.
+  - slug: xl-h1
+    topic: Dynamic arrays
+    type: mcq_single
+    difficulty: hard
+    prompt: Which formula returns the unique values from A2:A500 and spills them into the cells below?
+    options: [{id: a, text: "=UNIQUE(A2:A500)"}, {id: b, text: "=DISTINCT(A2:A500)"}, {id: c, text: "=COUNTIF(A2:A500)"}, {id: d, text: "=FILTER(A2:A500)"}]
+    answer: a
+    explanation: UNIQUE is a dynamic-array function in Microsoft 365 and Excel 2021 that spills its results.
+  - slug: xl-h2
+    topic: SUMIFS
+    type: mcq_single
+    difficulty: hard
+    prompt: Which formula sums Amount (C:C) where Region (A:A) is "South" and Month (B:B) is "Mar"?
+    options:
+      - {id: a, text: "=SUMIFS(C:C, A:A, \"South\", B:B, \"Mar\")"}
+      - {id: b, text: "=SUMIF(C:C, \"South\", \"Mar\")"}
+      - {id: c, text: "=SUM(C:C, \"South\", \"Mar\")"}
+      - {id: d, text: "=SUMIFS(A:A, \"South\", B:B, C:C)"}
+    answer: a
+    explanation: SUMIFS takes the sum range first, then pairs of criteria range and criterion.
+  - slug: xl-int1
+    topic: Analysis workflow
+    type: short_answer
+    difficulty: medium
+    purpose: interview
+    prompt: A manager asks why monthly revenue dropped 15%. Using a spreadsheet of transactions, how would you investigate?
+    reference_answer: Confirm the drop is real by checking data completeness and comparing like-for-like periods. Then break revenue down into components — number of orders times average order value — and by segment such as region, product, channel and customer type using pivot tables, to find where the decline is concentrated. Check for seasonality or one-off events, compare with the same month last year, and present the main drivers with a clear chart and next steps, noting any data caveats.
+    key_points:
+      - {id: kp1, text: "Validate the data and compare like-for-like periods first", weight: 0.25}
+      - {id: kp2, text: "Decompose revenue (orders × average value) and segment it (pivot tables)", weight: 0.35}
+      - {id: kp3, text: "Consider seasonality, one-off events or year-over-year comparison", weight: 0.2}
+      - {id: kp4, text: "Communicate drivers clearly with caveats", weight: 0.2}
+    explanation: Decomposition and segmentation localise the cause.

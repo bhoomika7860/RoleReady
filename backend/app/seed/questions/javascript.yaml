@@ -1,0 +1,165 @@
+defaults: {skill: javascript, purpose: any, source_type: curated_general, authoring: ai_assisted, bank_version: v1}
+questions:
+  - slug: js-e1
+    topic: Equality
+    type: code_output
+    difficulty: easy
+    prompt: |
+      What does this log?
+      ```js
+      console.log(0 == "0", 0 === "0");
+      ```
+    options: [{id: a, text: "true true"}, {id: b, text: "true false"}, {id: c, text: "false true"}, {id: d, text: "false false"}]
+    answer: b
+    explanation: "== converts types before comparing, so 0 == '0' is true; === also compares types, so it is false."
+  - slug: js-e2
+    topic: Variables
+    type: mcq_single
+    difficulty: easy
+    prompt: Which declaration creates a block-scoped variable that cannot be reassigned?
+    options: [{id: a, text: var}, {id: b, text: let}, {id: c, text: const}, {id: d, text: function}]
+    answer: c
+    explanation: const is block-scoped and cannot be reassigned (though an object it points to can still be mutated).
+  - slug: js-e3
+    topic: Arrays
+    type: code_output
+    difficulty: easy
+    prompt: |
+      What does this log?
+      ```js
+      const a = [1, 2, 3].map(x => x * 2).filter(x => x > 2);
+      console.log(a);
+      ```
+    options: [{id: a, text: "[2, 4, 6]"}, {id: b, text: "[4, 6]"}, {id: c, text: "[3]"}, {id: d, text: "[2]"}]
+    answer: b
+    explanation: map doubles to [2, 4, 6]; filter keeps values greater than 2.
+  - slug: js-e4
+    topic: Types
+    type: code_output
+    difficulty: easy
+    prompt: |
+      What does this log?
+      ```js
+      console.log(typeof null, typeof []);
+      ```
+    options: [{id: a, text: "null array"}, {id: b, text: "object object"}, {id: c, text: "null object"}, {id: d, text: "undefined array"}]
+    answer: b
+    explanation: "typeof null is 'object' (a historical quirk) and arrays are objects; use Array.isArray to detect arrays."
+  - slug: js-m1
+    topic: Event loop
+    type: code_output
+    difficulty: medium
+    prompt: |
+      In what order are the letters logged?
+      ```js
+      console.log("A");
+      setTimeout(() => console.log("B"), 0);
+      Promise.resolve().then(() => console.log("C"));
+      console.log("D");
+      ```
+    options: [{id: a, text: "A B C D"}, {id: b, text: "A D C B"}, {id: c, text: "A D B C"}, {id: d, text: "A C D B"}]
+    answer: b
+    explanation: Synchronous code runs first (A, D). Promise callbacks are microtasks and run before timer callbacks (macrotasks), so C comes before B.
+  - slug: js-m2
+    topic: Hoisting and scope
+    type: code_output
+    difficulty: medium
+    prompt: |
+      What does this log?
+      ```js
+      for (var i = 0; i < 3; i++) {
+        setTimeout(() => console.log(i), 0);
+      }
+      ```
+    options: [{id: a, text: "0 1 2"}, {id: b, text: "3 3 3"}, {id: c, text: "2 2 2"}, {id: d, text: "undefined three times"}]
+    answer: b
+    explanation: var is function-scoped, so all callbacks share one i, which is 3 by the time they run. Using let creates a new binding per iteration and logs 0 1 2.
+  - slug: js-m-sa1
+    topic: Closures
+    type: short_answer
+    difficulty: medium
+    prompt: What is a closure in JavaScript? Give an example of something useful you can do with one.
+    reference_answer: A closure is a function together with the variables from the scope where it was created; the inner function keeps access to those variables even after the outer function returns. Uses include private state such as a counter function that increments a hidden variable, factory functions, memoisation, and event handlers or callbacks that remember configuration.
+    key_points:
+      - {id: kp1, text: "An inner function keeps access to variables from its outer (lexical) scope", weight: 0.4}
+      - {id: kp2, text: "That access persists after the outer function has returned", weight: 0.3}
+      - {id: kp3, text: "A practical use such as private state, counters, factories or memoisation", weight: 0.3}
+    explanation: Closures capture variables by reference from the defining scope.
+  - slug: js-m-sa2
+    topic: Promises and async/await
+    type: short_answer
+    difficulty: medium
+    prompt: Explain what async/await does in JavaScript and how you would handle errors when fetching data with it.
+    reference_answer: async functions always return a Promise, and await pauses that function until a Promise settles, letting asynchronous code read top to bottom without blocking the main thread. Wrap awaits in try/catch to handle rejections, check response.ok because fetch only rejects on network failures, and show a fallback or retry. Independent requests can run in parallel with Promise.all.
+    key_points:
+      - {id: kp1, text: "async functions return Promises; await waits for a Promise without blocking the thread", weight: 0.4}
+      - {id: kp2, text: "try/catch (or .catch) to handle rejected promises", weight: 0.35}
+      - {id: kp3, text: "Checks HTTP errors (response.ok) or mentions Promise.all for parallel work", weight: 0.25}
+    explanation: async/await is syntax over Promises; errors surface as rejections.
+  - slug: js-h1
+    topic: this binding
+    type: code_output
+    difficulty: hard
+    prompt: |
+      What does this log (in a browser, non-strict module code aside, assume `name` is not defined globally)?
+      ```js
+      const user = {
+        name: "Riya",
+        greet() { return () => this.name; }
+      };
+      const f = user.greet();
+      console.log(f());
+      ```
+    options: [{id: a, text: "Riya"}, {id: b, text: "undefined"}, {id: c, text: "An error"}, {id: d, text: "An empty string"}]
+    answer: a
+    explanation: Arrow functions don't have their own this; they use this from the enclosing greet call, which is user.
+  - slug: js-h2
+    topic: Reference vs value
+    type: code_output
+    difficulty: hard
+    prompt: |
+      What does this log?
+      ```js
+      const a = { n: 1 };
+      const b = { ...a };
+      const c = a;
+      c.n = 2;
+      console.log(a.n, b.n);
+      ```
+    options: [{id: a, text: "1 1"}, {id: b, text: "2 1"}, {id: c, text: "2 2"}, {id: d, text: "1 2"}]
+    answer: b
+    explanation: c references the same object as a, so the change shows in a. The spread created a separate shallow copy b.
+  - slug: js-h3
+    topic: Debounce
+    type: mcq_single
+    difficulty: hard
+    prompt: A search box fires an API call on every keystroke. Which technique reduces calls to one after the user pauses typing?
+    options: [{id: a, text: "Debouncing the handler"}, {id: b, text: "Using var instead of let"}, {id: c, text: "Calling the API synchronously"}, {id: d, text: "Adding more event listeners"}]
+    answer: a
+    explanation: Debouncing delays the call until input stops for a set time, cancelling earlier pending calls.
+  - slug: js-int1
+    topic: Event loop
+    type: short_answer
+    difficulty: medium
+    purpose: interview
+    prompt: Explain how the JavaScript event loop lets a single-threaded language handle asynchronous work like network requests.
+    reference_answer: JavaScript runs on one call stack. Long operations such as network requests or timers are handed to the browser or Node runtime, which runs them outside the main thread. When they finish, their callbacks are queued. The event loop takes work from the queues when the call stack is empty — first all microtasks (promise callbacks), then the next macrotask (timers, I/O, UI events). This keeps the UI responsive as long as no single task blocks the stack for long.
+    key_points:
+      - {id: kp1, text: "Single call stack; async work handled by the runtime (Web APIs / libuv)", weight: 0.3}
+      - {id: kp2, text: "Completed work queues callbacks; the loop runs them when the stack is empty", weight: 0.3}
+      - {id: kp3, text: "Microtasks (promises) run before macrotasks (timers, events)", weight: 0.25}
+      - {id: kp4, text: "Long synchronous work blocks everything / UI responsiveness", weight: 0.15}
+    explanation: The event loop coordinates the call stack and task queues.
+  - slug: js-int2
+    topic: Fundamentals
+    type: short_answer
+    difficulty: medium
+    purpose: interview
+    prompt: What's the difference between `let`, `const` and `var`, and which do you use by default?
+    reference_answer: var is function-scoped, hoisted and initialised to undefined, and can be redeclared, which causes bugs such as loop closures sharing one variable. let and const are block-scoped and in the temporal dead zone before their declaration; let can be reassigned and const cannot (although objects it references can still be mutated). Default to const, use let when reassignment is needed, and avoid var.
+    key_points:
+      - {id: kp1, text: "var is function-scoped; let/const are block-scoped", weight: 0.35}
+      - {id: kp2, text: "const cannot be reassigned but the referenced object can be mutated", weight: 0.3}
+      - {id: kp3, text: "Hoisting / temporal dead zone difference or a bug var causes", weight: 0.15}
+      - {id: kp4, text: "Sensible default (const, then let; avoid var)", weight: 0.2}
+    explanation: Scope and reassignment rules are the key differences.
